@@ -2,25 +2,34 @@ const Sequelize = require('sequelize');
 
 const sequelize = require('../utils/database');
 
-const user = sequelize.define('user', {
-  Username: {
+const bcrypt = require('bcryptjs');
+/*
+  username: samuel
+  password:1234
+  hashed password that will be generated each time: $2a$12$NIH/WK/ESjWi5bTw7NkpZu4aHeQcoWbUa2OYqkWzmSTdBiuuAg.xe
+*/
+const User = sequelize.define('user', {
+  username: {
       type: Sequelize.STRING,
       unique: true,
       primaryKey: true,
       allowNull: false,
   },
-  Password: {
+  password: {
     type: Sequelize.STRING,
     allowNull:false
   },
-  Role:{
+  role:{
     type: Sequelize.STRING,
     allowNull:false,
     values: ['admin', 'cashier']
   },
-  Name:{
+  name:{
     type: Sequelize.STRING,
     allowNull: true,
   }
 });
-module.exports = user;
+User.prototype.validatePassword = function(password) {
+  return bcrypt.compare(password, this.password);
+};
+module.exports = User;
