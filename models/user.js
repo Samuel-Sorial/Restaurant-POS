@@ -30,6 +30,6 @@ const User = sequelize.define('user', {
   }
 });
 User.prototype.validatePassword = function(password) {
-  return bcrypt.compare(password, this.password);
+  bcrypt.compare(password, this.password).then( result => result);
 };
 module.exports = User;
