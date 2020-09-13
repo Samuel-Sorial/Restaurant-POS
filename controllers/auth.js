@@ -7,7 +7,7 @@ module.exports.getLogin = (req,res,next) => {
         if(req.session.role == 'admin'){
             res.redirect('home');
         }else{
-            res.redirect('cashier');
+            res.redirect('place-order');
         }
         return;
     }
@@ -24,6 +24,7 @@ module.exports.postLogin = (req,res,next) => {
             if(rightPassword){
                 req.session.logedIn = true;
                 req.session.role = result.role;
+                return res.redirect('home');
             }
         }
         res.redirect('');

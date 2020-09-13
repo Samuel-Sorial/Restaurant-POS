@@ -3,6 +3,7 @@ const Sequelize = require('sequelize');
 const sequelize = require('../utils/database');
 const Client = require('./client');
 const User = require('./user');
+const invoiceProduct = require('./invoiceProduct');
 
 const Invoice = sequelize.define('invoice', {
     invoiceId: {
@@ -29,25 +30,14 @@ const Invoice = sequelize.define('invoice', {
     totalPrice: {
         type: Sequelize.NUMBER,
         allowNull: false,
-    },
-    phoneNumber: {
-        type: Sequelize.STRING,
-        allowNull: true,
-        references: {
-            model: Client,
-            key: 'phoneNumber'
-        }
-    },
-    username: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        references: {
-            model: User,
-            key: 'username'
-            }
     }
    } ,
    {
     timestamps: false //prevent from making created at, edited at field.
-    });
-    module.exports = Invoice;
+});
+
+Invoice.belongsTo(User);
+Invoice.belongsTo(Client);
+Invoice.hasMany(invoiceProduct);
+
+module.exports = Invoice;

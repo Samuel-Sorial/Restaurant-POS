@@ -3,6 +3,7 @@ const Sequelize = require('sequelize');
 const sequelize = require('../utils/database');
 
 const bcrypt = require('bcryptjs');
+const Invoice = require('./invoice');
 /*
   username: samuel
   password:12345
@@ -32,4 +33,7 @@ const User = sequelize.define('user', {
 User.prototype.validatePassword = function(password) {
   bcrypt.compare(password, this.password).then( result => result);
 };
+
+User.hasMany(Invoice);
+
 module.exports = User;
