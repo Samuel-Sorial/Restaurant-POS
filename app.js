@@ -10,15 +10,15 @@ const session = require('express-session');
 
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
-const authController = require('./controllers/auth');
-
 const app = express();
 
-const dashboardController = require('./controllers/dashboard');
+const homePage = require('./router/login');
+const dashboard = require('./router/dashboard');
+
 
 const sessionStore = new SequelizeStore({
     db: sequelize,
-    expiration: 60 * 60 * 1000, // by milliseconds
+    expiration: 15 * 60 * 1000, // by milliseconds
     checkExpirationInterval: 16 * 60 * 1000
 });
 
@@ -30,15 +30,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({
     extended: true
   }));
-
-
   app.use(session({
     secret: 'myownsecret',
     store: sessionStore,
     resave: true,
     saveUninitialized: false,
       cookie:{
-      maxAge: 60 * 60 * 1000, // by milliseconds
+      maxAge: 15 * 60 * 1000, // by milliseconds
       sameSite:true //prevent sending it to any other domain
   }
     
@@ -46,10 +44,8 @@ app.use(bodyParser.urlencoded({
 }));
 
 sequelize.sync().
-then(app.listen(3000, console.log('Started listening'))).
+then(app.listen(3000)).
 catch( err => console.log(err));
 
-app.get('', authController.getLogin);
-app.post('', authController.postLogin);
-app.get('/home', dashboardController);
-
+app.use(homePage);
+app.use(dashboard);
