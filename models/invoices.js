@@ -14,10 +14,12 @@ const Invoice = sequelize.define('invoice', {
     },
     discount: {
         type: Sequelize.NUMBER,
+        defaultValue: 0,
         allowNull: true
     },
     isDelivery: {
         type: Sequelize.BOOLEAN,
+        defaultValue: false,
         allowNull: false
     },
     date: {
@@ -38,6 +40,7 @@ const Invoice = sequelize.define('invoice', {
     },
     username: {
         type: Sequelize.STRING,
+        allowNull: false,
         references: {
             model: User,
             key: 'username'
@@ -45,6 +48,6 @@ const Invoice = sequelize.define('invoice', {
     }
    } ,
    {
-    timestamps: false
+    timestamps: false //prevent from making created at, edited at field.
     });
     module.exports = Invoice;

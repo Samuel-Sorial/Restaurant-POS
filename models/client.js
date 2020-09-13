@@ -20,7 +20,7 @@ const Client = sequelize.define('client', {
     }
   },
   {
- timestamps: false
+ timestamps: false //prevent from making created at, edited at field.
   });
 
 module.exports = Client;
