@@ -5,7 +5,7 @@ const sequelize = require('../utils/database');
 const bcrypt = require('bcryptjs');
 /*
   username: samuel
-  password:1234
+  password:12345
   hashed password that will be generated each time: $2a$12$NIH/WK/ESjWi5bTw7NkpZu4aHeQcoWbUa2OYqkWzmSTdBiuuAg.xe
 */
 const User = sequelize.define('user', {

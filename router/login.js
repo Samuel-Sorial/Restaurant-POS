@@ -12,4 +12,8 @@ router.post('/logout', authController.logOut);
 
 router.get('/logout', (req,res,next) => res.send('hell'));
 
+router.get('/:anylink', (req,res,next) => {
+    res.render('error404.ejs');
+})
+
 module.exports = router;
