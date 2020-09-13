@@ -28,7 +28,11 @@ const User = sequelize.define('user', {
     type: Sequelize.STRING,
     allowNull: true,
   }
-});
+  }
+  ,
+  {
+   timestamps: false
+   });
 User.prototype.validatePassword = function(password) {
   bcrypt.compare(password, this.password).then( result => result);
 };
