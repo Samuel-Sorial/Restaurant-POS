@@ -23,10 +23,18 @@ module.exports.postLogin = (req,res,next) => {
             const rightPassword =  result.validate(password);
             if(rightPassword){
                 req.session.logedIn = true;
-                console.log(result.role);
                 req.session.role = result.role;
             }
         }
         res.redirect('');
    }).catch(err => console.log(err))
+}
+
+
+module.exports.logOut = (req,res,next) => {
+    if(req.session.logedIn){
+        req.session.destroy();
+        req.session = null;
+    }
+    res.redirect('');
 }
