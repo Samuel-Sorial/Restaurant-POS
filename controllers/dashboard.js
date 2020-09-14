@@ -14,11 +14,13 @@ module.exports.getDashboard = (req, res, next) => {
 }
 
 module.exports.getEditProduct = (req, res, next) => {
-    const currCategories = Category.findAll().then( categories => {
-        res.render('./admin/edit-product.ejs', {
-            categories: categories
-        });
-    }).catch(err => console.log(err));
+    if(validateAdmin(req)){
+        const currCategories = Category.findAll().then( categories => {
+            res.render('./admin/edit-product.ejs', {
+                categories: categories
+            });
+        }).catch(err => console.log(err));
+    }
 }
 
 
@@ -45,12 +47,11 @@ module.exports.postEditProduct = (req, res, next) => {
         const productName = req.body.productName;
         const price = req.body.price;
         const ratio = req.body.ratio;
-        const categoryId = req.body.category;
         Product.create({
                 name: productName,
                 price: price,
                 ratio: ratio,
-                categoryCategoryId: categoryId
+                categoryCategoryId: req.body.categoryId
         });
         res.redirect('/');
     }

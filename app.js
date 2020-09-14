@@ -28,6 +28,7 @@ const InvoiceProduct = require('./models/invoiceProduct');
 Invoice.belongsTo(User);
 Invoice.belongsTo(Client);
 Product.belongsTo(Category);
+Category.hasMany(Product);
 InvoiceProduct.belongsTo(Product);
 InvoiceProduct.belongsTo(Invoice);
 
