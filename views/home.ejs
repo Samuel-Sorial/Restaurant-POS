@@ -1,27 +1,7 @@
 <%- include('./includes/head.ejs') %>
-<link rel="stylesheet" href="/css/home.css">
 
 </head>
 
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md"></div>
-            <form class="col justify-content-center" method="POST" action="/">
-                <div class="form-group">
-                    <label for="userName" class="">Username:</label>
-                    <input type="text" class="form-control" name="username">
-                </div>
-                <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" class="form-control" name="password">
-                </div>
-                <button type="submit" class="btn btn-primary">Login</button>
-            </form>
-            <div class="col-md"></div>
-        </div>
-    </div>
-</body>
 <body class="bg-gradient-primary">
     <div class="container">
         <div class="row justify-content-center">
@@ -37,7 +17,7 @@
                                     <div class="text-center">
                                         <h4 class="text-dark mb-4">Welcome Back!</h4>
                                     </div>
-                                    <form class="user">
+                                    <form class="user" method="POST" action="/">
                                         <div class="form-group"><input class="form-control form-control-user" type="text" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Username" name="username"></div>
                                         <div class="form-group"><input class="form-control form-control-user" type="password" id="exampleInputPassword" placeholder="Password" name="password"></div><button class="btn btn-primary btn-block text-white btn-user" type="submit">Login</button>
                                         <hr>
@@ -53,6 +33,11 @@
             </div>
         </div>
     </div>
-</body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+    <script src="/js/bs-init.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+    <script src="/js/theme.js"></script>
 
 <%- include('./includes/end.ejs') %>
