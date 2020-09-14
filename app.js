@@ -12,12 +12,12 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const app = express();
 
+const homePage = require('./router/login');
+const dashboard = require('./router/dashboard');
 
 
 // Relationships initialization
 
-const homePage = require('./router/login');
-const dashboard = require('./router/dashboard');
 const User = require('./models/user');
 const Invoice = require('./models/invoice');
 const Client = require('./models/client');
