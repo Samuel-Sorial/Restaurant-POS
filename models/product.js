@@ -2,10 +2,6 @@ const Sequelize = require('sequelize');
 
 const sequelize = require('../utils/database');
 
-const Category = require('./category');
-
-const invoiceProduct = require('./invoiceProduct');
-
 const Product = sequelize.define('product', {
     productId:{
         type:Sequelize.STRING,
@@ -18,20 +14,19 @@ const Product = sequelize.define('product', {
         allowNull:false
     },
     price:{
-        type:Sequelize.NUMBER,
+        type:Sequelize.FLOAT,
         allowNull:false,
     },
     ratio:{
-        type: Sequelize.NUMBER,
+        type: Sequelize.FLOAT,
         allowNull: true
     },
     discount:{
-        type: Sequelize.NUMBER,
+        type: Sequelize.FLOAT,
         allowNull:true
     },
     }, {
     timestamps: false //prevent from making created at, edited at field.
 });
 
-Product.belongsTo(Category);
-Product.hasMany(invoiceProduct);
+module.exports = Product;

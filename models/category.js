@@ -2,7 +2,6 @@ const Sequelize = require('sequelize');
 
 const sequelize = require('../utils/database');
 
-const Product = require('./product');
 
 const Category = sequelize.define('product', {
     categoryId:{
@@ -20,9 +19,4 @@ const Category = sequelize.define('product', {
         timestamps: false //prevent from making created at, edited at field.
     });
 
-Category.hasMany(Product, {
-    foreignKey: {
-        name: 'categoryId',
-        allowNull: false,
-    }
-});
+    module.exports = Category;

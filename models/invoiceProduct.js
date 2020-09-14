@@ -1,21 +1,19 @@
 const Sequelize = require('sequelize');
 
 const sequelize = require('../utils/database');
-const Invoice = require('./invoice');
-const Product = require('./product');
+
 
 const InvoiceProduct = sequelize.define('invoiceProduct', {
     count:{
-        type: Sequelize.NUMBER,
+        type: Sequelize.FLOAT,
         allowNull: false,
     },
     totalPrice:{
-        type: Sequelize.NUMBER,
+        type: Sequelize.FLOAT,
         allowNull: false
     }
 }, {
     timestamps: false //prevent from making created at, edited at field.
 });
 
-InvoiceProduct.belongsTo(Product);
-InvoiceProduct.belongsTo(Invoice);
+module.exports = InvoiceProduct;

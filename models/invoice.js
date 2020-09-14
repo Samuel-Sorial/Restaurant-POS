@@ -1,9 +1,5 @@
 const Sequelize = require('sequelize');
-
 const sequelize = require('../utils/database');
-const Client = require('./client');
-const User = require('./user');
-const invoiceProduct = require('./invoiceProduct');
 
 const Invoice = sequelize.define('invoice', {
     invoiceId: {
@@ -11,10 +7,9 @@ const Invoice = sequelize.define('invoice', {
         unique: true,
         primaryKey: true,
         allowNull: false,
-        autoIncrement: true,
     },
     discount: {
-        type: Sequelize.NUMBER,
+        type: Sequelize.FLOAT,
         defaultValue: 0,
         allowNull: true
     },
@@ -28,16 +23,12 @@ const Invoice = sequelize.define('invoice', {
         allowNull: false
     },
     totalPrice: {
-        type: Sequelize.NUMBER,
+        type: Sequelize.FLOAT,
         allowNull: false,
     }
    } ,
    {
     timestamps: false //prevent from making created at, edited at field.
 });
-
-Invoice.belongsTo(User);
-Invoice.belongsTo(Client);
-Invoice.hasMany(invoiceProduct);
 
 module.exports = Invoice;

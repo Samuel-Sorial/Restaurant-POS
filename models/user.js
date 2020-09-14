@@ -34,6 +34,5 @@ User.prototype.validatePassword = function(password) {
   bcrypt.compare(password, this.password).then( result => result);
 };
 
-User.hasMany(Invoice);
 
 module.exports = User;

@@ -1,7 +1,6 @@
 const Sequelize = require('sequelize');
 
 const sequelize = require('../utils/database');
-const Invoice = require('./invoice');
 
 const Client = sequelize.define('client', {
     phoneNumber: {
@@ -22,7 +21,5 @@ const Client = sequelize.define('client', {
   {
  timestamps: false //prevent from making created at, edited at field.
 });
-
-Client.hasMany(Invoice);
 
 module.exports = Client;

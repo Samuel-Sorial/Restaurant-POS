@@ -12,9 +12,31 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const app = express();
 
+
+
+// Relationships initialization
+
 const homePage = require('./router/login');
 const dashboard = require('./router/dashboard');
+const User = require('./models/user');
+const Invoice = require('./models/invoice');
+const Client = require('./models/client');
+const Product = require('./models/product');
+const Category = require('./models/category');
+const InvoiceProduct = require('./models/invoiceProduct');
 
+Invoice.belongsTo(User);
+Invoice.belongsTo(Client);
+Invoice.hasMany(Product);
+User.hasMany(Invoice);
+Client.hasMany(Invoice);
+Category.hasMany(Product);
+Product.belongsTo(Category);
+Product.hasMany(InvoiceProduct);
+InvoiceProduct.belongsTo(Product);
+InvoiceProduct.belongsTo(Invoice);
+
+// End of relationship initialization
 
 const sessionStore = new SequelizeStore({
     db: sequelize,
