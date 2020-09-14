@@ -11,7 +11,7 @@ module.exports.getLogin = (req,res,next) => {
         }
         return;
     }
-    res.render('../views/home.ejs');
+    res.render('home.ejs');
 }
 
 
@@ -27,15 +27,16 @@ module.exports.postLogin = (req,res,next) => {
                 return res.redirect('home');
             }
         }
-        res.redirect('');
+        res.redirect('/');
    }).catch(err => console.log(err))
 }
 
 
 module.exports.logOut = (req,res,next) => {
     if(req.session.logedIn){
+        console.log('destroying');
         req.session.destroy();
         req.session = null;
     }
-    res.redirect('');
+    res.redirect('/');
 }

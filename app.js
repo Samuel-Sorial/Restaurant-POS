@@ -13,7 +13,7 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const app = express();
 
 const homePage = require('./router/login');
-const dashboard = require('./router/dashboard');
+const admin = require('./router/admin');
 
 
 // Relationships initialization
@@ -70,4 +70,4 @@ then(app.listen(3000)).
 catch( err => console.log(err));
 
 app.use(homePage);
-app.use(dashboard);
+app.use(admin);
