@@ -27,12 +27,7 @@ const InvoiceProduct = require('./models/invoiceProduct');
 
 Invoice.belongsTo(User);
 Invoice.belongsTo(Client);
-Invoice.hasMany(Product);
-User.hasMany(Invoice);
-Client.hasMany(Invoice);
-Category.hasMany(Product);
 Product.belongsTo(Category);
-Product.hasMany(InvoiceProduct);
 InvoiceProduct.belongsTo(Product);
 InvoiceProduct.belongsTo(Invoice);
 
@@ -40,8 +35,8 @@ InvoiceProduct.belongsTo(Invoice);
 
 const sessionStore = new SequelizeStore({
     db: sequelize,
-    expiration: 15 * 60 * 1000, // by milliseconds
-    checkExpirationInterval: 16 * 60 * 1000
+    expiration: 30 * 60 * 1000, // by milliseconds
+    checkExpirationInterval: 30 * 60 * 1000
 });
 
 app.set('view engine', 'ejs');
@@ -70,4 +65,4 @@ then(app.listen(3000)).
 catch( err => console.log(err));
 
 app.use(homePage);
-app.use(admin);
+app.use('/admin',admin);

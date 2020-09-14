@@ -5,7 +5,7 @@ const salt = '$2a$12$NIH/WK/ESjWi5bTw7NkpZu';
 module.exports.getLogin = (req,res,next) => {
     if(req.session.logedIn){
         if(req.session.role == 'admin'){
-            res.redirect('home');
+            res.redirect('admin');
         }else{
             res.redirect('place-order');
         }
@@ -24,7 +24,7 @@ module.exports.postLogin = (req,res,next) => {
             if(rightPassword){
                 req.session.logedIn = true;
                 req.session.role = result.role;
-                return res.redirect('home');
+                return res.redirect('/admin');
             }
         }
         res.redirect('/');

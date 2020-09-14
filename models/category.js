@@ -3,12 +3,11 @@ const Sequelize = require('sequelize');
 const sequelize = require('../utils/database');
 
 
-const Category = sequelize.define('product', {
+const Category = sequelize.define('category', {
     categoryId:{
-        type: Sequelize.STRING,
-        allowNull:false,
+        type: Sequelize.INTEGER,
         primaryKey:true,
-        unique: true
+        autoIncrement: true
     },
     name:{
         type: Sequelize.STRING,
@@ -19,4 +18,4 @@ const Category = sequelize.define('product', {
         timestamps: false //prevent from making created at, edited at field.
     });
 
-    module.exports = Category;
+module.exports = Category;

@@ -1,0 +1,41 @@
+<%- include('../includes/navbar.ejs') %>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+</head>
+<body>
+    <div class="d-flex flex-column" id="content-wrapper">
+    <div id="content">
+        <h1 style="padding: 25px;">Add product</h1>
+        <div class="container">
+            <form method="POST" action="/admin/edit-product">
+                <div class="form-group"><label>Product name:</label><input name="productName" class="form-control" type="text"></div>
+                <div class="form-group"><label>Price</label><input name="price" class="form-control" type="number"></div>
+                <div class="form-group"><label>Ratio (example: if you type 30 -&gt; 30%)</label><input name="ratio" class="form-control" type="number"></div>
+                <div class="form-group"><label>Category</label><select class="form-control">
+                    <optgroup label="Please select category">
+                    <% if (categories.length > 0) {
+                        for(let category of categories){ %>
+                            <option value="<%= category.categoryId %>" selected=""><%= category.name %></option>
+                            <% } } %>
+                </optgroup></select></div>
+                <button class="btn btn-primary btn-block text-white btn-user" type="submit">Add category</button>
+            </form>
+        </div>
+    </div>
+    <footer class="bg-white sticky-footer">
+        <div class="container my-auto">
+            <div class="text-center my-auto copyright"><span>Copyright © Brand 2020</span></div>
+        </div>
+    </footer>
+    </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+    <script src="/js/bs-init.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+    <script src="/js/theme.js"></script>
+</body>
+
+
+<%- include('../includes/end.ejs') %>
