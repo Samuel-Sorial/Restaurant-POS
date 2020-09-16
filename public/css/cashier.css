@@ -1,3 +1,29 @@
 .nav-item{
     padding:10px 20px;
 }
+.card-body{
+    text-align: center;
+}
+.product-name{
+    font-weight: bold;
+    letter-spacing: .5px;
+}
+
+.col-9{
+    padding-right: 0;
+}
+.col-3{
+    padding-left: 0;
+}
+.add-to-order {
+    font-size: 25px;
+    cursor: pointer;
+    color: #00a2b3;
+}
+.product-card{
+    padding: 5px;
+    margin: 3px 8px;
+    border: 1px solid #07b2c4;
+    cursor: pointer;
+    border-radius: 15px;
+}

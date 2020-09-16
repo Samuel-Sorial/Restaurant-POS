@@ -1,6 +1,7 @@
 <%- include('./includes/navbar.ejs') %>
-
-<div class="accordion col-9" id="accordionExample">
+<link rel="stylesheet" href="/css/cashier.css">
+</head>
+<div class="row"><div class="accordion col-9" id="accordionExample">
       <% if (categories.length > 0) { 
         for(let category of categories) { %>
           <div class="card z-depth-0 bordered">
@@ -17,11 +18,11 @@
               <div class="card-body row">
                 <% if (category.products.length > 0) { 
                   for(let product of category.products){ %>
-                    <div class="col-2">
-                    <p><%= product.name%></p>
-                    <p>$<%= product.price%></p>
-                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM4 14a1 1 0 1 1 2 0 1 1 0 0 1-2 0zm7 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z"/>
+                    <div class="col-2 product-card product<%= product.productId%>">
+                    <h4 class="product-name"><%= product.name%></h4>
+                    <p class="product-price">$<%= product.price%></p>
+                    <svg id="<%= product.productId%>" class="add-to-order" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                      <path id="<%= product.productId%>" fill-rule="evenodd" d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM4 14a1 1 0 1 1 2 0 1 1 0 0 1-2 0zm7 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z"/>
                     </svg>
                   </div>
                 <% } } %>
@@ -30,6 +31,20 @@
           </div>
           <% } }%>
 </div>
-<div class='col-3'>
+<div class='col-3 order-cart'>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Product name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Count</th>
+        <th scope="col">Discount</th>
+      </tr>
+    </thead>
+    <tbody class="products-body">
+
+    </tbody>
+  </table></div>
 </div>
 <%- include('./includes/end.ejs') %>

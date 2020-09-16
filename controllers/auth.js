@@ -24,7 +24,9 @@ module.exports.postLogin = (req,res,next) => {
             if(rightPassword){
                 req.session.logedIn = true;
                 req.session.role = result.role;
-                return res.redirect('/admin');
+                return res.render('admin/dashboard.ejs',{
+                    currentPage:'dashboard'
+                });
             }
         }
         res.redirect('/');
