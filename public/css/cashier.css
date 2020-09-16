@@ -37,3 +37,17 @@ td{
 td input{
     width: 70px;
 }
+.hidden, .hidden-calc{
+    display: none;
+}
+.manual-discount{
+    padding-left: 10px;
+    margin-bottom: 15px;
+}
+.manual-discount label{
+    padding-left: 15px;
+}
+.overall-product{
+    padding-left: 10px;
+    padding-bottom: 15px;
+}

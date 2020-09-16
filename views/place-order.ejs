@@ -42,6 +42,20 @@
     <tbody class="products-body">
 
     </tbody>
-  </table></div>
+  </table>
+  <hr>
+  <div class="row hidden manual-discount">
+    <label class="col-5">Manual discount:</label>
+    <input class="col-4" type="number" value="0" min="0" autocomplete="off">
+    <label class="col-3">L.E</label>
+  </div>
+  <hr>
+  <div class="hidden-calc overall-product">
+    <p class="overall text-center">Overall: 50</p>
+    <p class="discount text-center">Total Discount: 0</p>
+    <p class="total text-center">Total after the discount: 0</p>
+  </div>
+  <button type="button" class="hidden btn btn-primary btn-lg btn-block">Place Order</button>
 </div>
+<script src="/js/place-order.js"></script>
 <%- include('./includes/end.ejs') %>
