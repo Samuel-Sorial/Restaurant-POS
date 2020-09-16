@@ -110,6 +110,7 @@ const addDeleteButton = (cell, product) => {
 const removeProductFromTable = (product) => {
     const svg = document.querySelector('.prod'+product.id);
     svg.parentElement.parentElement.remove();
+    displayOverAllCalculation();
 }
 
 // id => boolean

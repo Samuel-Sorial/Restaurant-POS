@@ -1,6 +1,7 @@
 <%- include('./includes/navbar.ejs') %>
 <link rel="stylesheet" href="/css/cashier.css">
 </head>
+<div class="wrapper">
 <div class="row"><div class="accordion col-9" id="accordionExample">
       <% if (categories.length > 0) { 
         for(let category of categories) { %>
@@ -56,6 +57,7 @@
     <p class="total text-center">Total after the discount: 0</p>
   </div>
   <button type="button" class="hidden btn btn-primary btn-lg btn-block">Place Order</button>
+</div>
 </div>
 <script src="/js/place-order.js"></script>
 <%- include('./includes/end.ejs') %>

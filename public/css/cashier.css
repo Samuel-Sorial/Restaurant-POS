@@ -1,3 +1,6 @@
+.body{
+    overflow-x: hidden;
+}
 .nav-item{
     padding:10px 20px;
 }
@@ -14,6 +17,7 @@
 }
 .col-3{
     padding-left: 0;
+    overflow-x: hidden;
 }
 .add-to-order {
     font-size: 25px;
@@ -50,4 +54,8 @@ td input{
 .overall-product{
     padding-left: 10px;
     padding-bottom: 15px;
+}
+
+.order-cart{
+    padding: 0;
 }

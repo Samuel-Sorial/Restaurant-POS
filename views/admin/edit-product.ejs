@@ -10,7 +10,7 @@
             <form method="POST" action="/admin/edit-product">
                 <div class="form-group"><label>Product name:</label><input name="productName" class="form-control" type="text"></div>
                 <div class="form-group"><label>Price</label><input name="price" class="form-control" type="number"></div>
-                <div class="form-group"><label>Ratio (example: if you type 30 -&gt; 30%)</label><input name="ratio" class="form-control" type="number"></div>
+                <div class="form-group"><label>Ratio (example: if you type 30 -&gt; 30%)</label><input name="ratio" class="form-control" type="number" min="0" max="1" step=".01"></div>
                 <div class="form-group"><label>Category</label><select name="categoryId" class="form-control">
                     <optgroup label="Please select category">
                     <% if (categories.length > 0) {
