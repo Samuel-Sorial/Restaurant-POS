@@ -27,3 +27,13 @@
     cursor: pointer;
     border-radius: 15px;
 }
+td{
+    text-align: center;
+}
+.delete-product{
+    color:red;
+    cursor: pointer;
+}
+td input{
+    width: 70px;
+}
