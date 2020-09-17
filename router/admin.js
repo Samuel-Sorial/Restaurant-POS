@@ -6,12 +6,12 @@ const router = express.Router();
 
 router.get('/' , dashboardController.getDashboard);
 
-router.get('/edit-product', dashboardController.getEditProduct);
+router.get('/manage-product', dashboardController.getEditProduct);
 
-router.post('/edit-product', dashboardController.postEditProduct);
+router.post('/manage-product', dashboardController.postEditProduct);
 
-router.get('/edit-category', dashboardController.getEditCategory);
+router.get('/manage-category', dashboardController.getEditCategory);
 
-router.post('/edit-category', dashboardController.postEditCategory);
+router.post('/manage-category', dashboardController.postEditCategory);
 
 module.exports = router;

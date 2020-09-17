@@ -16,7 +16,7 @@ module.exports.getDashboard = (req, res, next) => {
 module.exports.getEditProduct = (req, res, next) => {
     if(validateAdmin(req)){
         const currCategories = Category.findAll().then( categories => {
-            res.render('./admin/edit-product.ejs', {
+            res.render('./admin/manage-product.ejs', {
                 categories: categories
             });
         }).catch(err => console.log(err));
@@ -26,7 +26,7 @@ module.exports.getEditProduct = (req, res, next) => {
 
 module.exports.getEditCategory = (req, res, next) => {
     if(validateAdmin(req)){
-        res.render('./admin/edit-category.ejs' , {
+        res.render('./admin/manage-category.ejs' , {
             categories: [{name:'hello'}]
         });
     }else{
