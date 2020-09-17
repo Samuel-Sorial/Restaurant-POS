@@ -13,7 +13,7 @@ module.exports.getDashboard = (req, res, next) => {
     }
 }
 
-module.exports.getEditProduct = (req, res, next) => {
+module.exports.getManageProduct = (req, res, next) => {
     if(validateAdmin(req)){
         const currCategories = Category.findAll().then( categories => {
             res.render('./admin/manage-product.ejs', {
@@ -24,25 +24,32 @@ module.exports.getEditProduct = (req, res, next) => {
 }
 
 
-module.exports.getEditCategory = (req, res, next) => {
+module.exports.getManageCategory = (req, res, next) => {
     if(validateAdmin(req)){
-        res.render('./admin/manage-category.ejs' , {
-            categories: [{name:'hello'}]
-        });
+        Category.findAll().then(categories => {
+            res.render('./admin/manage-category.ejs' , 
+            {
+               categories: categories 
+            });
+        }).catch(err => console.log(err))
     }else{
         res.send('please login with the admin');
     }
 }
 
-
-module.exports.postEditCategory = (req, res, next) => {
+module.exports.getManageSpecificCategory = (req, res, next) => {
+    Category.findByPk(req.params.id).then( category=> {
+        res.render('./admin/manageSpecificCategory.ejs', {category: category});
+    }).catch(err => console.log(err));
+}
+module.exports.postManageCategory = (req, res, next) => {
     if(validateAdmin(req)){
         const category = req.body.categoryName;
         Category.create({name: category});
     }
 }
 
-module.exports.postEditProduct = (req, res, next) => {
+module.exports.postManageProduct = (req, res, next) => {
     if(validateAdmin(req)){
         const productName = req.body.productName;
         const price = req.body.price;
@@ -56,3 +63,4 @@ module.exports.postEditProduct = (req, res, next) => {
         res.redirect('/');
     }
 }
+
