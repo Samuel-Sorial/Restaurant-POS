@@ -26,10 +26,11 @@
             document.getElementById('delete').addEventListener("click", (event) => {
                 let sure = confirm('Are you sure you want to delete this category? Note: if you delete, all products inside it will be deleted');
                 if(sure){
-                    const id = event.target.parent;
-                    fetch(`/manage-category-${id}`, {
-                        method: 'POST'
-                    })
+                    const id = event.target.parentElement.id;
+                    fetch( `http://` + window.location.host + `/admin/manage-category-${id}`, {
+                        method: 'POST'})
+                    .then( res => console.log('HI'))
+                    .catch(err=> console.log(err));
                 }else{
                 
                 }
