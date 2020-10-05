@@ -45,10 +45,30 @@ module.exports.getManageSpecificCategory = (req, res, next) => {
 module.exports.postManageCategory = (req, res, next) => {
     if(validateAdmin(req)){
         const category = req.body.categoryName;
-        Category.create({name: category});
+        Category.create({name: category}).then( result => res.redirect('/admin/manage-category')
+        );
     }
 }
 
+module.exports.postCategoryName = (req, res, next) => {
+    if(validateAdmin){
+        const categoryName = req.body.categoryName;
+        Category.findByPk(req.params.id).then( result => {
+            result.name = categoryName
+            result.save().then(res.redirect('/admin/manage-category'));
+        })
+    }
+}
+
+module.exports.deleteManageCategory = (req, res, next ) => {
+        const categoryId = req.params.id;
+        Category.findByPk(categoryId)
+        .then( result => {
+             result.destroy()
+            }
+        )
+        .catch(err => console.log(err));
+}
 module.exports.postManageProduct = (req, res, next) => {
     if(validateAdmin(req)){
         const productName = req.body.productName;

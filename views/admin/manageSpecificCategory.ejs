@@ -10,7 +10,7 @@
                 <div class="form-group"><input name="categoryName" class="form-control" type="text" value="<%= category.name %>"></div>
                 <button class="btn btn-primary btn-block text-white btn-user" type="submit">Save category</button>
             </form>
-            <form id="<%= category.categoryId %>" style="margin-top: 25px;">
+            <form id="<%= category.categoryId %>" style="margin-top: 25px;" action="/admin/manage-category" method="GET">
                 <button id="delete" class="btn btn-primary btn-block text-white btn-user" type="submit">Delete Category</button>
             </form>             
         </div>
@@ -28,13 +28,11 @@
                 if(sure){
                     const id = event.target.parentElement.id;
                     fetch( `http://` + window.location.host + `/admin/manage-category-${id}`, {
-                        method: 'POST'})
-                    .then( res => console.log('HI'))
+                        method: 'DELETE'})
+                    .then()
                     .catch(err=> console.log(err));
-                }else{
-                
-                }
-            })
+                    }
+            });
         </script>
 </body>
 

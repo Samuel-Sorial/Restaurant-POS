@@ -16,5 +16,8 @@ router.post('/manage-category', dashboardController.postManageCategory);
 
 router.get('/manage-category-:id', dashboardController.getManageSpecificCategory);
 
-router.post('/manage-category-:id', (req, res, next) => console.log(req.params.id));
+router.post('/manage-category-:id', dashboardController.postCategoryName);
+
+router.delete('/manage-category-:id', dashboardController.deleteManageCategory);
+
 module.exports = router;
