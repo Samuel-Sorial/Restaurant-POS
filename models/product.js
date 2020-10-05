@@ -24,6 +24,10 @@ const Product = sequelize.define('product', {
         type: Sequelize.FLOAT,
         allowNull:true
     },
+    hidden:{
+        type: Sequelize.BOOLEAN,
+        allowNull: true
+    }
     }, {
     timestamps: false //prevent from making created at, edited at field.
 });

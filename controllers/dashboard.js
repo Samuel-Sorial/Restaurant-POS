@@ -15,9 +15,13 @@ module.exports.getDashboard = (req, res, next) => {
 
 module.exports.getManageProduct = (req, res, next) => {
     if(validateAdmin(req)){
-        const currCategories = Category.findAll().then( categories => {
+        Category.findAll({include: Product}).then( categories => {
             res.render('./admin/manage-product.ejs', {
-                categories: categories
+                categories: categories,
+                productName:"",
+                productRatio: 0,
+                productPrice: 0,
+                editing: false
             });
         }).catch(err => console.log(err));
     }
@@ -50,6 +54,23 @@ module.exports.postManageCategory = (req, res, next) => {
     }
 }
 
+module.exports.getEditProduct = (req, res, next) => {
+    if(validateAdmin(req)){
+        Category.findAll({include: Product}).then( categories => {
+            Product.findByPk(req.params.id).then( product => {
+                res.render('./admin/manage-product.ejs', {
+                    categories: categories,
+                    productName : product.name,
+                    productPrice : product.price,
+                    productRatio : product.ratio,
+                    productId : product.productId,
+                    editing:true
+                });
+            })
+        }).catch(err => console.log(err));
+    }
+}
+
 module.exports.postCategoryName = (req, res, next) => {
     if(validateAdmin){
         const categoryName = req.body.categoryName;
@@ -74,6 +95,15 @@ module.exports.postManageProduct = (req, res, next) => {
         const productName = req.body.productName;
         const price = req.body.price;
         const ratio = req.body.ratio;
+        if(req.body.editingType){
+            Product.findByPk(req.body.editingType).then( result => {
+                result.name = productName;
+                result.price = price;
+                result.ratio = ratio;
+                result.categoryCategoryId =  req.body.categoryId;
+                result.save();
+            });
+        }else{
         Product.create({
                 name: productName,
                 price: price,
@@ -81,6 +111,16 @@ module.exports.postManageProduct = (req, res, next) => {
                 categoryCategoryId: req.body.categoryId
         });
         res.redirect('/');
+    }
+    }
+}
+
+module.exports.deleteProduct = (req, res , next) => {
+    if(validateAdmin(req)){
+        Product.findByPk(req.params.id).then( product =>{
+             product.hidden = true;
+             product.save();
+        }).catch( err => console.log(err));
     }
 }
 

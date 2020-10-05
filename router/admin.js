@@ -10,6 +10,10 @@ router.get('/manage-product', dashboardController.getManageProduct);
 
 router.post('/manage-product', dashboardController.postManageProduct);
 
+router.get('/manage-product-:id', dashboardController.getEditProduct);
+
+router.delete('/manage-product-:id', dashboardController.deleteProduct);
+
 router.get('/manage-category', dashboardController.getManageCategory);
 
 router.post('/manage-category', dashboardController.postManageCategory);
