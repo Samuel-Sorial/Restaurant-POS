@@ -1,6 +1,8 @@
 const express = require('express');
 
-const dashboardController = require('../controllers/dashboard');
+const dashboardController = require('../controllers/dashboard/dashboard');
+
+const categoryManagementController = require('../controllers/dashboard/manageCategory');
 
 const productManagementController = require('../controllers/dashboard/manageProduct');
 
@@ -16,14 +18,14 @@ router.get('/manage-product-:id', productManagementController.getEditProduct);
 
 router.delete('/manage-product-:id', productManagementController.deleteProduct);
 
-router.get('/manage-category', dashboardController.getManageCategory);
+router.get('/manage-category', categoryManagementController.getManageCategory);
 
-router.post('/manage-category', dashboardController.postManageCategory);
+router.post('/manage-category', categoryManagementController.postManageCategory);
 
-router.get('/manage-category-:id', dashboardController.getManageSpecificCategory);
+router.get('/manage-category-:id', categoryManagementController.getManageSpecificCategory);
 
-router.post('/manage-category-:id', dashboardController.postCategoryName);
+router.post('/manage-category-:id', categoryManagementController.postCategoryName);
 
-router.delete('/manage-category-:id', dashboardController.deleteManageCategory);
+router.delete('/manage-category-:id', categoryManagementController.deleteManageCategory);
 
 module.exports = router;
