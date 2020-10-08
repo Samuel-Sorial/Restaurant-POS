@@ -6,6 +6,8 @@ const categoryManagementController = require('../controllers/dashboard/manageCat
 
 const productManagementController = require('../controllers/dashboard/manageProduct');
 
+const discountManagementController = require('../controllers/dashboard/manageDiscount');
+
 const router = express.Router();
 
 router.get('/' , dashboardController.getDashboard);
@@ -27,5 +29,7 @@ router.get('/manage-category-:id', categoryManagementController.getManageSpecifi
 router.post('/manage-category-:id', categoryManagementController.postCategoryName);
 
 router.delete('/manage-category-:id', categoryManagementController.deleteManageCategory);
+
+router.get('/manage-discount', discountManagementController.getManageDiscount);
 
 module.exports = router;

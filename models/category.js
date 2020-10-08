@@ -12,7 +12,7 @@ const Category = sequelize.define('category', {
     name:{
         type: Sequelize.STRING,
         allowNull:false
-    }
+    },
 },
     {
         timestamps: false //prevent from making created at, edited at field.

@@ -1,0 +1,40 @@
+<%- include('../includes/navbar.ejs') %>
+</head>
+<body>
+    <div class="d-flex flex-column" id="content-wrapper">
+        <div class="container">
+            <form method="POST" action="/admin/manage-category">
+                <h3 style="padding-top: 25px;">Add a new category discount:</h1>
+                    <div class="form-group"><label>Category</label><select name="categoryId" class="form-control">
+                        <optgroup label="Please select category">
+                        <% if (categories.length > 0) {
+                            for(let category of categories){ %>
+                                <option value="<%= category.categoryId %>" selected=""><%= category.name %></option>
+                        <% } } %>
+                        </optgroup></select></div>
+                    <div class="form-group"><label>Ratio (example: if you type 30 -&gt; 30%)</label><input  name="ratio" class="form-control" type="number" min="0" max="100" step="1"></div>
+                    <button class="btn btn-primary btn-block text-white btn-user" type="submit">Add Discount</button>
+            </form>
+                <h3 style="padding-top: 25px;">Add a product discount:</h1>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select name="categoryId" class="form-control">
+                        <optgroup label="Please select category">
+                            <% if (categories.length > 0) {
+                                for(let category of categories){ %>
+                                    <option value="<%= category.categoryId %>" selected=""><%= category.name %></option>
+                            <% } } %>
+                        </optgroup>
+                    </select>
+                </div>
+        </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+</body>
+
+
+<%- include('../includes/end.ejs') %>
