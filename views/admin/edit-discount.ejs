@@ -5,29 +5,51 @@
 <body>
     <div class="d-flex flex-column" id="content-wrapper">
         <div class="container">
-            <form method="POST" action="/admin/manage-discount">
-                <h3 style="padding-top: 25px;">Add a new category discount:</h1>
+            <form id="edit-category" method="POST" action="/admin/manage-discount">
+                <h3 style="padding-top: 25px;">Edit an existing category discount:</h1>
                     <div class="form-group"><label>Category</label><select name="categoryId" class="form-control">
                         <optgroup label="Please select category">
-                        <% if (categories.length > 0) {
+                          <% if (categories.length > 0) {
                             for(let category of categories){ 
                               if(!category.CategoryDiscountDiscountId){%>
                                 <option value="<%= category.categoryId %>" data-ratio="<%= category.discount %>" selected=""><%= category.name %></option>
                         <% } } }%>
                         </optgroup></select></div>
-                    <div class="form-group"><label>Discount ratio:</label><input  name="ratio" class="form-control" aria-describedby="ratioCheck" type="number" min="0" max="100" step="1"></div>
+                    <div class="form-group"><label>Discount ratio:</label><input name="ratio" class="form-control ratio" aria-describedby="ratioCheck" type="number" min="0" max="100" step="1"></div>
                     <small id="ratioCheck" class="form-text text-muted">
                         If you type 30 this means you need a 30% discount. 
                     </small>
                     <br>
-                    <button class="btn btn-primary btn-block text-white btn-user" type="submit">Add Discount</button>
+                    <button class="btn btn-primary btn-block text-white btn-user" type="submit">Edit Discount</button>
+                    <button id="delete" class="btn btn-primary btn-block text-white btn-user" type="submit">Delete Discount</button>
+            </form>
+            <form id="editProductDiscount">
+                <h3 style="padding-top: 25px;">Edit an existing product discount:</h3>
+                <div class="form-group">
+                    <label>Choose product/s:</label>
+                    <div class="card-body row">
+                    <% for(let product of products){ if(product.hidden != 1 && product.discount){ %>
+                        <div data-ratio="<%= product.discount %>" data-id="<%= product.productId%>" id="<%= product.productId%>" class="col-2 product-card">
+                            <h4 data-id="<%= product.productId%>" class="product-name"><%= product.name%></h4>
+                            <p  data-id="<%= product.productId%>" class="product-price">$<%= product.price%></p>
+                        </div>
+                    <% } } %>
+                    </div>
+                    <div class="form-group"><label>Discount ratio:</label><input  name="ratio" class="form-control discountRatio" aria-describedby="ratioCheck" type="number" min="0" max="100" step="1"></div>
+                    <small id="ratioCheck" class="form-text text-muted">
+                        If you type 30 this means you need a 30% discount. 
+                    </small>
+                    <br>
+                </div>
+                <br>
+                <button class="btn btn-primary btn-block text-white btn-user submitDiscount">Add Discount</button>
             </form>
             </div>
         </div>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
     <script src="/js/bs-init.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
-
+    <script src="/js/edit-discount.js"></script>
 <%- include('../includes/end.ejs') %>

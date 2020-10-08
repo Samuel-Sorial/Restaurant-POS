@@ -29,14 +29,16 @@ module.exports.postAddDiscount = async (req, res, next) => {
 }
 
 
-module.exports.getEditDiscount = (req, res, next) => {
+module.exports.getEditDiscount = async (req, res, next) => {
     if(validateAdmin){
+        let products = await Product.findAll({where: {discount:{[Op.not] : null}}});
         Category.findAll({where:{discount: {
             [Op.not] : null       
         }}
     }).then(categories => {
         res.render('./admin/edit-discount.ejs', {
-            categories: categories
+            categories: categories,
+            products: products
         })
     })
     }

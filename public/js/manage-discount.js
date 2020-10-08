@@ -36,10 +36,3 @@ document.querySelector('.submitDiscount').addEventListener('click', onAddClick);
 for(let button of addButtons){
     button.addEventListener("click", onProductClick )
 }
-
-
-
-/*fetch( `http://` + window.location.host + `/admin/manage-category-${id}`, {
-
-                        method: 'DELETE'})
-                    .then()*/
