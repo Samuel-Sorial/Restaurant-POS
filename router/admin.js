@@ -34,4 +34,6 @@ router.get('/manage-discount', discountManagementController.getManageDiscount);
 
 router.post('/manage-discount', discountManagementController.postAddDiscount);
 
+router.get('/manage-discount/edit', discountManagementController.getEditDiscount);
+
 module.exports = router;

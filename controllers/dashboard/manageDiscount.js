@@ -1,5 +1,7 @@
 const Category = require('../../models/category');
 const Product = require('../../models/product');
+const { Op } = require('sequelize');
+
 const validateAdmin = require('../../utils/validateAdmin');
 
 
@@ -23,5 +25,19 @@ module.exports.postAddDiscount = async (req, res, next) => {
             Product.update({discount: req.body.ratio}, {where: {productId: req.body.products}})
         }
         res.redirect('/admin/manage-discount');
+    }
+}
+
+
+module.exports.getEditDiscount = (req, res, next) => {
+    if(validateAdmin){
+        Category.findAll({where:{discount: {
+            [Op.not] : null       
+        }}
+    }).then(categories => {
+        res.render('./admin/edit-discount.ejs', {
+            categories: categories
+        })
+    })
     }
 }

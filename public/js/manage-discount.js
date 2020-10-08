@@ -16,7 +16,6 @@ const onProductClick = event => {
 
 const onAddClick = event => {
     const formData = new FormData(document.querySelector('#addProductDiscount'));
-    const name = formData.get('name');
     const ratio = formData.get('ratio');
     const encoded ={
         name: name,

@@ -2,3 +2,12 @@
     background: none;
     border:none;
 }
+.body{
+    overflow-x: hidden;
+}
+.nav-item{
+    padding:10px 20px;
+}
+.card-body{
+    text-align: center;
+}
