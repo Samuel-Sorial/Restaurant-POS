@@ -24,6 +24,8 @@ const Client = require('./models/client');
 const Product = require('./models/product');
 const Category = require('./models/category');
 const InvoiceProduct = require('./models/invoiceProduct');
+const CategoryDiscount = require('./models/discount').CategoryDiscount;
+const ProductDiscount = require('./models/discount').ProductDiscount;
 
 Invoice.belongsTo(User);
 Invoice.belongsTo(Client);
@@ -31,6 +33,8 @@ Product.belongsTo(Category);
 Category.hasMany(Product);
 InvoiceProduct.belongsTo(Product);
 InvoiceProduct.belongsTo(Invoice);
+CategoryDiscount.hasOne(Category);
+ProductDiscount.hasOne(Product);
 
 // End of relationship initialization
 
