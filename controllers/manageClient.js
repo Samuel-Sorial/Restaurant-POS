@@ -15,3 +15,15 @@ module.exports.postManageClient = (req, res, next) => {
     });
     res.redirect('/manage-client');
 }
+
+
+module.exports.userExists = (req, res, next) => {
+    Client.findByPk(req.params.phoneNumber).then( client => {
+        if(client){
+            res.status(200).send('found');
+        }else{
+            res.status(201).send('notFound');
+        }
+    })
+}
+
