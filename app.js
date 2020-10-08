@@ -33,6 +33,8 @@ Product.belongsTo(Category);
 Category.hasMany(Product);
 InvoiceProduct.belongsTo(Product);
 InvoiceProduct.belongsTo(Invoice);
+Product.belongsTo(ProductDiscount);
+Category.belongsTo(CategoryDiscount);
 CategoryDiscount.hasOne(Category);
 ProductDiscount.hasOne(Product);
 
@@ -49,7 +51,7 @@ app.set('views', 'views');
 
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.urlencoded({
+app.use(express.json()).use(bodyParser.urlencoded({
     extended: true
   }));
   app.use(session({

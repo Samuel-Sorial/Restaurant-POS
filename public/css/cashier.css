@@ -27,7 +27,7 @@
 .product-card{
     padding: 5px;
     margin: 3px 8px;
-    border: 1px solid #07b2c4;
+    border: 3px solid #07b2c4;
     cursor: pointer;
     border-radius: 15px;
 }
@@ -58,4 +58,7 @@ td input{
 
 .order-cart{
     padding: 0;
+}
+.choosenProduct{
+    border-color: #3df73d;
 }

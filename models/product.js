@@ -20,10 +20,6 @@ const Product = sequelize.define('product', {
         type: Sequelize.FLOAT,
         allowNull: true
     },
-    discount:{
-        type: Sequelize.FLOAT,
-        allowNull:true
-    },
     hidden:{
         type: Sequelize.BOOLEAN,
         allowNull: true

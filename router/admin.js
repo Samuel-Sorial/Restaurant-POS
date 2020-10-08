@@ -32,4 +32,6 @@ router.delete('/manage-category-:id', categoryManagementController.deleteManageC
 
 router.get('/manage-discount', discountManagementController.getManageDiscount);
 
+router.post('/manage-discount', discountManagementController.postAddDiscount);
+
 module.exports = router;
