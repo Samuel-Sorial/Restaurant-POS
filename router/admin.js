@@ -36,4 +36,10 @@ router.post('/manage-discount', discountManagementController.postAddDiscount);
 
 router.get('/manage-discount/edit', discountManagementController.getEditDiscount);
 
+router.post('/manage-discount/edit', discountManagementController.postEditDiscount);
+
+router.delete('/manage-discount/delete-category-:id', discountManagementController.deleteCategoryDiscount);
+
+router.delete('/manage-discount/delete-product-:id', discountManagementController.deleteProductDiscount);
+
 module.exports = router;
