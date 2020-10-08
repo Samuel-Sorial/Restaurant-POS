@@ -13,6 +13,10 @@ const Category = sequelize.define('category', {
         type: Sequelize.STRING,
         allowNull:false
     },
+    discount:{
+        type: Sequelize.FLOAT,
+        allowNull:true
+    }
 },
     {
         timestamps: false //prevent from making created at, edited at field.

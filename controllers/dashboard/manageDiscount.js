@@ -14,12 +14,13 @@ module.exports.getManageDiscount = (req, res, next) => {
 }
 
 
-module.exports.postAddDiscount = (req, res, next) => {
+module.exports.postAddDiscount = async (req, res, next) => {
     if(validateAdmin(req)){
         if(req.body.categoryId){
-            console.log(req.body)
-        }else{
-            console.log(req.body)
+            Category.update({discount : req.body.ratio}, {where: {categoryId : req.body.categoryId}});
+        }
+        else{
+            Product.update({discount: req.body.ratio}, {where: {productId: req.body.products}})
         }
         res.redirect('/admin/manage-discount');
     }
