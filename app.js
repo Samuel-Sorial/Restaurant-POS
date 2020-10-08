@@ -14,6 +14,7 @@ const app = express();
 
 const homePage = require('./router/login');
 const admin = require('./router/admin');
+const cashier = require('./router/cashier.js');
 
 
 // Relationships initialization
@@ -67,4 +68,6 @@ then(app.listen(3000)).
 catch( err => console.log(err));
 
 app.use(homePage);
+app.use(cashier);
 app.use('/admin',admin);
+

@@ -42,4 +42,5 @@ router.delete('/manage-discount/delete-category-:id', discountManagementControll
 
 router.delete('/manage-discount/delete-product-:id', discountManagementController.deleteProductDiscount);
 
+
 module.exports = router;

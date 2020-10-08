@@ -9,13 +9,17 @@ const Client = sequelize.define('client', {
         allowNull: false,
         unique: true
     },
-    Name: {
+    name: {
         type: Sequelize.STRING,
         allowNull: false,
     },
-    Address: {
+    address: {
         type: Sequelize.STRING,
         allowNull: false
+    },
+    points: {
+        type: Sequelize.INTEGER,
+        allowNull:false
     }
   },
   {
