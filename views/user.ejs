@@ -1,12 +1,23 @@
-</head>
 
 <%- include('./includes/navbar.ejs') %>
 <div class="d-flex flex-column" id="content-wrapper">
     <div class="container">
         <form id="addClient" method="POST" action="/manage-client">
             <h3 style="padding-top: 25px;">Add a new client</h1>
-            <div class="form-group"><label>User phonenumber :</label><input autocomplete="off" name="phoneNumber" class="form-control phoneNumber" required minlength="11" maxlength="11" type="text"></div>
+            <div class="form-group autocomplete"><label>User phonenumber :</label><input autocomplete="off" name="phoneNumber" class="form-control phoneNumber" required minlength="11" maxlength="11" type="text"></div>
             <div class="form-group"><label>User name :</label><input name="name" class="form-control name"  required type="text"></div>
+            <div class="form-group"><label>User address :</label><input name="address" class="form-control address" required type="text"></div>
+
+            <button class="btn btn-primary btn-block text-white btn-user" type="submit">Add client</button>
+        </form>
+        <br><br>
+        <form id="editClient" method="POST" action="/manage-client">
+            <h3 style="padding-top: 25px;">Edit an existing client</h1>
+            <div class="form-group"><label>User phonenumber :</label><input id="autoComplete" autocomplete="off" name="phoneNumber" list="phonesList" class="form-control phoneNumber" required minlength="11" maxlength="11" type="text"></div>
+            <datalist id="phonesList">
+                <option>23</option>
+            </datalist>
+            <div class="form-group"><label>User name :</label><input name="name" class="form-control name"  required type="text" autocomplete="off"></div>
             <div class="form-group"><label>User address :</label><input name="address" class="form-control address" required type="text"></div>
 
             <button class="btn btn-primary btn-block text-white btn-user" type="submit">Add client</button>

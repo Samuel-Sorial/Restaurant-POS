@@ -1,4 +1,5 @@
 const Client = require('../models/client');
+const { Op } = require('sequelize');
 
 module.exports.getManageClient = (req, res, next) => {
     Client.findAll().then( clients => {
@@ -27,3 +28,10 @@ module.exports.userExists = (req, res, next) => {
     })
 }
 
+module.exports.findUsers = (req, res, next) => {
+    Client.findAll({where:{phoneNumber: {
+        [Op.like] : `${req.params.phoneNumber}%`
+    }}}).then( users => {
+        res.send(users);
+    })
+}

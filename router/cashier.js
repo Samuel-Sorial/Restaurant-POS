@@ -10,4 +10,6 @@ router.post('/manage-client', clientManagementController.postManageClient);
 
 router.get('/check-number-:phoneNumber', clientManagementController.userExists);
 
+router.get('/find-numbers-:phoneNumber', clientManagementController.findUsers);
+
 module.exports = router;
