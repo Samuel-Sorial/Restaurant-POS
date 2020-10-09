@@ -6,7 +6,9 @@ const clientManagementController = require('../controllers/manageClient');
 
 router.get('/manage-client', clientManagementController.getManageClient);
 
-router.post('/manage-client', clientManagementController.postManageClient);
+router.post('/add-client', clientManagementController.postAddClient);
+
+router.post('/manage-client', clientManagementController.postEditClient);
 
 router.get('/check-number-:phoneNumber', clientManagementController.userExists);
 
