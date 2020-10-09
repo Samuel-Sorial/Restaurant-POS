@@ -19,7 +19,7 @@
               <div class="card-body row">
                 <% if (category.products.length > 0) { 
                   for(let product of category.products){ if(product.hidden != 1){ %>
-                    <div  data-id="<%= product.productId%>" id="<%= product.productId%>" class="col-2 product-card">
+                    <div  data-id="<%= product.productId%>" data-discount="<%= product.discount %>" id="<%= product.productId%>" class="col-2 product-card">
                     <h4 data-id="<%= product.productId%>" class="product-name"><%= product.name%></h4>
                     <p  data-id="<%= product.productId%>" class="product-price">$<%= product.price%></p>
                   </div>
@@ -37,7 +37,6 @@
         <th scope="col">Name</th>
         <th scope="col">Price</th>
         <th scope="col">Count</th>
-        <th scope="col">Discount</th>
       </tr>
     </thead>
     <tbody class="products-body">
@@ -47,17 +46,23 @@
   <hr>
   <div class="row hidden manual-discount">
     <label class="col-5">Manual discount:</label>
-    <input class="col-4" type="number" value="0" min="0" autocomplete="off">
+    <input class="col-4" type="number" value="0" min="0" autocomplete="off" step=".01">
     <label class="col-3">L.E</label>
   </div>
   <hr>
   <div class="hidden-calc overall-product">
-    <p class="overall text-center">Overall: 50</p>
+    <p class="overall text-center">Overall: 0</p>
     <p class="discount text-center">Total Discount: 0</p>
     <p class="total text-center">Total after the discount: 0</p>
   </div>
   <button type="button" class="hidden btn btn-primary btn-lg btn-block">Place Order</button>
 </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+<script src="/js/bs-init.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+<script src="/js/theme.js"></script>
 <script src="/js/place-order.js"></script>
 <%- include('./includes/end.ejs') %>
