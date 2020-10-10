@@ -19,7 +19,7 @@
               <div class="card-body row">
                 <% if (category.products.length > 0) { 
                   for(let product of category.products){ if(product.hidden != 1){ %>
-                    <div  data-id="<%= product.productId%>" data-discount="<%= product.discount %>" id="<%= product.productId%>" class="col-2 product-card">
+                    <div  data-id="<%= product.productId%>" data-discount="<% if (product.discount){%> <%=product.discount%> <% }else{ %> <%=category.discount%> <%}%>" id="<%= product.productId%>" class="col-2 product-card">
                     <h4 data-id="<%= product.productId%>" class="product-name"><%= product.name%></h4>
                     <p  data-id="<%= product.productId%>" class="product-price">$<%= product.price%></p>
                   </div>
@@ -55,8 +55,37 @@
     <p class="discount text-center">Total Discount: 0</p>
     <p class="total text-center">Total after the discount: 0</p>
   </div>
-  <button type="button" class="hidden btn btn-primary btn-lg btn-block">Place Order</button>
-</div>
+  <div class="row">
+  <div  class="col-9">
+    <label>&nbspPhone number:</label>
+    <input style="width: 150px;" id="autocomplete" autocomplete="off" class="phoneNumber" minlength="11" maxlength="11" type="text" name="phoneNumber" list="phonesList">
+    <datalist id="phonesList">
+    </datalist>
+    </div>
+    <div style="margin-left: -5px;" class=" col-2 form-check">
+    <input autocomplete="off" type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label style="margin-top: 3px;" class="form-check-label" for="exampleCheck1">Delivery</label>
+  </div>
+  </div><br>
+  
+  <div class="row">
+  <div style="padding-left: 20px;" class="col-4">
+    <input placeholder="User Name" autocomplete="off" style="width: 150px;" name="name" class="userName" type="text" >
+  </div>
+  <div  class="col-8">
+        <input placeholder="Address" autocomplete="off" style=" margin-left:15px; width: 200px;" name="name" class="userAddress" type="text">
+  </div>
+  </div><br><br>
+  <div class="row">
+  <div style="margin-left: 15px; padding-top: 10px;" class="col-3 row">
+    <p class="col-7">Points:</p>
+    <p class="col-4 availablePoints">0</p>
+  </div>
+  <div  class="col-8">
+        <input  min="0" max="" placeholder="Use points" style=" margin-left:15px; width: 200px;" name="name" autocomplete="off" class="usePoints" type="number" step="10">
+  </div>
+  </div><br>
+  <button id="submitButton" type="button" class="hidden btn btn-primary btn-lg btn-block">Place Order</button>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>

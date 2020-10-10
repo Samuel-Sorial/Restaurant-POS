@@ -60,16 +60,6 @@ const addProductToTable = (product) => {
 const calculateOverAll = () => {
   let overall = 0;
   let totalDiscount = 0;
-  //   for (let i = 0; i < productTable.rows.length; i++) {
-  //     let currPrice = parseFloat(
-  //       productTable.rows.item(i).cells.item(2).innerText.slice(1)
-  //     );
-  //     let currCount = parseFloat(
-  //       productTable.rows.item(i).cells.item(3).children.item(0).value
-  //     );
-  //     overall += currPrice * currCount;
-  //     totalDiscount += currPrice
-  //   }
   for (let product of products) {
     overall += product.price * product.count;
     if (product.discount) {
@@ -79,6 +69,7 @@ const calculateOverAll = () => {
   totalDiscount += parseFloat(
     document.querySelector('.manual-discount input').value
   );
+  totalDiscount += document.querySelector('.usePoints').value / 10;
   return {
     overall: precise(overall),
     totalDiscount: precise(totalDiscount),
@@ -141,4 +132,151 @@ const alreadyAdded = (id) => {
     }
   }
   return false;
+};
+
+const phoneNumber = document.querySelector('.phoneNumber');
+
+const checkPhoneNumber = async (number) => {
+  let valid = await fetch(
+    `http://` + window.location.host + `/check-number-${number}`,
+    {
+      method: 'GET',
+      cache: 'no-cache',
+    }
+  );
+  if (valid.status != 200) {
+    phoneNumber.setAttribute('style', 'width: 150px; border: 2px solid red;');
+    alert("Can't find any client with this number, please fill his data");
+  } else {
+    phoneNumber.setAttribute(
+      'style',
+      ' width: 150px; border: 2px solid #97f497;'
+    );
+    updateData(await findSuggestions(number));
+  }
+};
+
+const phoneNumberHandler = async (event) => {
+  let value = phoneNumber.value;
+  if (value.length == 11) {
+    checkPhoneNumber(value);
+  } else {
+    autoComplete(event);
+  }
+};
+
+phoneNumber.addEventListener('input', phoneNumberHandler);
+const findSuggestions = async (number) => {
+  let suggestions = await fetch(
+    `http://` + window.location.host + `/find-numbers-${number}`,
+    {
+      method: 'GET',
+      cache: 'no-cache',
+    }
+  );
+  suggestions = await suggestions.json();
+  return suggestions;
+};
+const phonesList = document.querySelector('#phonesList');
+const editUserName = document.querySelector('.userName');
+const editAddress = document.querySelector('.userAddress');
+
+const createSuggestion = (number) => {
+  const option = document.createElement('option');
+  option.value = number.phoneNumber;
+  option.innerText = number.phoneNumber;
+  phonesList.appendChild(option);
+};
+
+const autoComplete = async (event) => {
+  if (event.target.value.length > 3 && event.target.value.length < 11) {
+    phonesList.innerHTML = '';
+    let suggestions = await findSuggestions(event.target.value);
+    for (let suggestion of suggestions) {
+      createSuggestion(suggestion);
+    }
+  }
+};
+let currentClient = null;
+
+const updateData = (currs) => {
+  for (let curr of currs) {
+    if (curr.phoneNumber == phoneNumber.value) {
+      editUserName.value = curr.name;
+      editAddress.value = curr.address;
+      currentClient = curr;
+      document.querySelector('.availablePoints').innerText = curr.points;
+      document.querySelector('.usePoints').max = curr.points;
+    }
+  }
+};
+
+document
+  .querySelector('.usePoints')
+  .addEventListener('input', displayOverAllCalculation);
+
+const placeOrder = async () => {
+  const isDelivery = document.querySelector('#exampleCheck1').value;
+  if (isDelivery == 'on') {
+    if (validateClient()) {
+      const prices = calculateOverAll();
+      if (prices.total < 0) {
+        alert('Discount cant be more than the total!!!');
+        return;
+      }
+      if (
+        document.querySelector('.usePoints').value >
+        document.querySelector('.usePoints').attributes.max.value
+      ) {
+        alert('You cant use more points than client has!');
+        return;
+      }
+      sendRequest(
+        isDelivery,
+        prices,
+        {
+          number: phoneNumber.value,
+          username: editUserName.value,
+          address: editAddress.value,
+          usedPoints: document.querySelector('.usePoints').value,
+        },
+        products
+      );
+    } else {
+      alert(
+        'To make order with delivery, you should add the data of the customer'
+      );
+    }
+  } else {
+    sendRequest(
+      'off',
+      prices,
+      {
+        number: phoneNumber.value,
+        username: editUserName.value,
+        address: editAddress.value,
+        usedPoints: document.querySelector('.usePoints').value,
+      },
+      products
+    );
+  }
+};
+
+submitButton.addEventListener('click', placeOrder);
+
+const validateClient = () => {
+  return phoneNumber.value && editUserName.value && editAddress.value;
+};
+
+const sendRequest = (delivery, prices, clientData, products) => {
+  const reqBody = {
+    delivery: delivery == 'on',
+    prices: prices,
+    client: clientData,
+    products: products
+  }
+  fetch(`http://` + window.location.host + `/place-order`, {
+    method: 'POST',
+    body: JSON.stringify(reqBody);
+  });
 };
