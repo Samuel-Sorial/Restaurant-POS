@@ -63,6 +63,7 @@ const updateProducts = (event) => {
   displayOverAllCalculation();
 };
 
+let deliveryTaxs = 5;
 const calculateOverAll = () => {
   let overall = 0;
   let totalDiscount = 0;
@@ -71,6 +72,9 @@ const calculateOverAll = () => {
     if (product.discount) {
       totalDiscount += (product.price * product.discount * product.count) / 100;
     }
+  }
+  if (document.querySelector('#exampleCheck1').checked) {
+    overall += deliveryTaxs;
   }
   totalDiscount += parseFloat(
     document.querySelector('.manual-discount input').value
@@ -222,6 +226,9 @@ document
   .querySelector('.usePoints')
   .addEventListener('input', displayOverAllCalculation);
 
+document.querySelector('#exampleCheck1').onchange = (event) => {
+  displayOverAllCalculation();
+};
 const placeOrder = async () => {
   const isDelivery = document.querySelector('#exampleCheck1').checked;
   const prices = calculateOverAll();
