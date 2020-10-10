@@ -1,0 +1,85 @@
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+/>
+<link
+  rel="stylesheet"
+  href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"
+/>
+<%- include('../includes/navbar.ejs') %>
+<div class="d-flex flex-column" id="content-wrapper">
+  <div class="container">
+    <br />
+    <h3>Add new user</h3>
+    <form method="POST" action="/admin/add-user">
+      <div class="form-group">
+        <label autocomplete="off">Username</label>
+        <input
+          name="username"
+          type="text"
+          class="form-control"
+          placeholder="Enter username"
+        />
+      </div>
+      <div class="form-group">
+        <label autocomplete="off">name</label>
+        <input
+          name="name"
+          type="text"
+          class="form-control"
+          placeholder="Enter username"
+        />
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="exampleInputPassword1"
+          placeholder="Password"
+          name="password"
+        />
+      </div>
+      <div class="form-check">
+        <input
+          name="admin"
+          type="checkbox"
+          class="form-check-input"
+          id="exampleCheck1"
+        />
+        <label class="form-check-label" for="exampleCheck1">Admin</label>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <br />
+    <h3>Edit an existing user from these users:</h3>
+    <p1>Ahmed&nbsp or</p1> <p1>Ahmed</p1> <br /><br />
+    <form method="POST" action="/admin/edit-user">
+      <div class="form-group">
+        <label autocomplete="off">Username</label>
+        <input type="text" class="form-control" placeholder="Enter username" />
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="exampleInputPassword1"
+          placeholder="Password"
+        />
+      </div>
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+        <label class="form-check-label" for="exampleCheck1">Admin</label>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+<script src="/js/bs-init.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+<script src="/js/theme.js"></script>

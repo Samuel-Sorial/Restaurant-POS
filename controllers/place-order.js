@@ -6,6 +6,8 @@ const Invoice = require('../models/invoice');
 
 const Client = require('../models/client');
 
+const Print = require('../utils/printing/index');
+
 module.exports.getPlaceOrder = (req, res, next) => {
   Category.findAll({include: Product})
     .then((categories) => {
@@ -37,7 +39,7 @@ module.exports.postPlaceOrder = async (req, res, next) => {
     totalPrice: req.body.prices.overall,
     userUsername: req.body.cashier,
     clientPhoneNumber: client.phoneNumber,
-  }).then((invoice) => {
+  }).then(async (invoice) => {
     for (let product of req.body.products) {
       invoice.addProduct(product.id);
     }
@@ -49,6 +51,15 @@ module.exports.postPlaceOrder = async (req, res, next) => {
       client.save();
     }
     invoice.save();
+    printInvoice(invoice.id);
+    // Print({
+    //   cashierName: 'Samuel',
+    //   products:
+    // })
   });
   res.send();
+};
+
+const printInvoice = (id) => {
+  Invoice.findByPk(id, {include: Product}).then((res) => console.log(res));
 };

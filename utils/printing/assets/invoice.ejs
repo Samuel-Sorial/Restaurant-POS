@@ -1,0 +1,188 @@
+<html>
+  <head>
+    <style>
+      body {
+        width: 384px;
+        font-size: 50px;
+        height: fit-content;
+        padding: 0 3px;
+      }
+      #feed-span {
+        height: 60px;
+        border-top: 1px solid black;
+        margin-top: 30px;
+      }
+      table {
+        width: 100%;
+        border: 1px solid black;
+      }
+      thead {
+        font-size: 28px;
+        font-weight: lighter;
+      }
+      tbody,
+      tfoot {
+        font-size: 26px;
+        text-align: center;
+      }
+      th {
+        border: 1px solid black;
+        font-weight: 300;
+      }
+      #product-name {
+        width: 75%;
+      }
+      td {
+        border: 1px solid black;
+      }
+      .paid {
+        font-size: 30px;
+        font-weight: 700;
+      }
+      .name {
+        text-align: right;
+        padding-right: 10px;
+      }
+      .section {
+        font-size: 24px;
+      }
+      .data {
+        display: inline-flex;
+        width: 49%;
+        /* height: 0px; */
+        /* padding-right: 10px; */
+        text-align: center;
+        margin: 0;
+        padding: 0;
+      }
+      .data p {
+        width: 100%;
+        margin: 0;
+        padding: 0 10px 0 0;
+        text-align: right;
+      }
+      .center p {
+        text-align: center;
+      }
+      .left p {
+        padding-left: 10px;
+        text-align: left;
+      }
+      .left {
+        width: 59%;
+      }
+      .right {
+        width: 39%;
+      }
+      .full {
+        width: 100%;
+      }
+      .section > .data > p > span {
+        font-size: 20px;
+      }
+      #total > .data {
+        width: 22.8%;
+        border: 1px solid black;
+        margin: 0 0.25%;
+        padding: 0 0 0 0;
+      }
+      #total > .data > p {
+        text-align: center;
+      }
+      #total > .total {
+        width: 47.709%;
+        margin: 0 0.5%;
+        font-size: 30px;
+        font-weight: 600;
+      }
+      #total {
+        margin-bottom: 10px;
+      }
+      .footer {
+        border-top: 1px solid black;
+        padding-top: 10px;
+      }
+    </style>
+  </head>
+  <body dir="rtl">
+    <div class="section">
+      <div class="data">
+        <p><span>رقم الفاتورة/</span> <%= invoiceId %></p>
+      </div>
+      <div class="data"></div>
+      <div class="data">
+        <p>
+          <span>التاريخ/</span> <%=
+          `${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}` %>
+        </p>
+      </div>
+      <div class="data center">
+        <p>
+          <%= date.toLocaleTimeString('en-GB',{hour12: true,hour: '2-digit',
+          minute: '2-digit'}) %>
+        </p>
+      </div>
+      <div class="data">
+        <p><span>الكاشير/</span> <%= cashierName %></p>
+      </div>
+      <div class="data center">
+        <p><%= isDelivery?'ديليفرى':'تيك اواى' %></p>
+      </div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th id="product-name">إسم الصنف</th>
+          <th>الكمية</th>
+          <th>السعر</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(var i=0; i < products.length; i++) { %>
+        <tr>
+          <td class="name"><%= products[i].name %></td>
+          <td><%= products[i].count %></td>
+          <td><%= products[i].price*products[i].count %></td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+    <div class="section" id="total">
+      <% if(discount) {%>
+      <div class="data s">
+        <p>الأجمالى</p>
+      </div>
+      <div class="data">
+        <p><%= total %></p>
+      </div>
+      <div class="data s">
+        <p>الخصم</p>
+      </div>
+      <div class="data">
+        <p><%= discount %></p>
+      </div>
+      <% } %>
+      <div class="data s total">
+        <p><%= discount?'المدفوع':'الأجمالى'%></p>
+      </div>
+      <div class="data total">
+        <p><%= discount? afterDiscount : total%></p>
+      </div>
+    </div>
+    <% if(isDelivery){ %>
+    <div class="section footer">
+      <div class="data right">
+        <p><span>العميل/</span> <%= clientName %></p>
+      </div>
+      <div class="data left">
+        <p><span>تليفون/</span> <%= clientPhone %></p>
+      </div>
+      <div class="data full">
+        <p><span>العنوان/</span> <%= clientAddress %></p>
+      </div>
+    </div>
+    <% } %>
+
+    <div id="feed-span"></div>
+  </body>
+</html>

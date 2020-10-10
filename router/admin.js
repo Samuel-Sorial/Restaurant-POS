@@ -10,7 +10,7 @@ const discountManagementController = require('../controllers/dashboard/manageDis
 
 const router = express.Router();
 
-router.get('/' , dashboardController.getDashboard);
+router.get('/', dashboardController.getDashboard);
 
 router.get('/manage-product', productManagementController.getManageProduct);
 
@@ -22,25 +22,54 @@ router.delete('/manage-product-:id', productManagementController.deleteProduct);
 
 router.get('/manage-category', categoryManagementController.getManageCategory);
 
-router.post('/manage-category', categoryManagementController.postManageCategory);
+router.post(
+  '/manage-category',
+  categoryManagementController.postManageCategory
+);
 
-router.get('/manage-category-:id', categoryManagementController.getManageSpecificCategory);
+router.get(
+  '/manage-category-:id',
+  categoryManagementController.getManageSpecificCategory
+);
 
-router.post('/manage-category-:id', categoryManagementController.postCategoryName);
+router.post(
+  '/manage-category-:id',
+  categoryManagementController.postCategoryName
+);
 
-router.delete('/manage-category-:id', categoryManagementController.deleteManageCategory);
+router.delete(
+  '/manage-category-:id',
+  categoryManagementController.deleteManageCategory
+);
 
 router.get('/manage-discount', discountManagementController.getManageDiscount);
 
 router.post('/manage-discount', discountManagementController.postAddDiscount);
 
-router.get('/manage-discount/edit', discountManagementController.getEditDiscount);
+router.get(
+  '/manage-discount/edit',
+  discountManagementController.getEditDiscount
+);
 
-router.post('/manage-discount/edit', discountManagementController.postEditDiscount);
+router.post(
+  '/manage-discount/edit',
+  discountManagementController.postEditDiscount
+);
 
-router.delete('/manage-discount/delete-category-:id', discountManagementController.deleteCategoryDiscount);
+router.delete(
+  '/manage-discount/delete-category-:id',
+  discountManagementController.deleteCategoryDiscount
+);
 
-router.delete('/manage-discount/delete-product-:id', discountManagementController.deleteProductDiscount);
+router.delete(
+  '/manage-discount/delete-product-:id',
+  discountManagementController.deleteProductDiscount
+);
 
+router.get('/manage-cashier', dashboardController.getManageCashier);
+
+router.post('/add-user', dashboardController.postAddUser);
+
+router.post('/edit-user', dashboardController.postEditUser);
 
 module.exports = router;

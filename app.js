@@ -23,13 +23,14 @@ const Invoice = require('./models/invoice');
 const Client = require('./models/client');
 const Product = require('./models/product');
 const Category = require('./models/category');
+const InvoiceProduct = require('./models/InvoiceProduct');
 
 Invoice.belongsTo(User);
 Invoice.belongsTo(Client);
 Product.belongsTo(Category);
 Category.hasMany(Product);
-Invoice.belongsToMany(Product, {through: 'InvoiceProduct'});
-Product.belongsToMany(Invoice, {through: 'InvoiceProduct'});
+Invoice.belongsToMany(Product, {through: InvoiceProduct});
+Product.belongsToMany(Invoice, {through: InvoiceProduct});
 // End of relationship initialization
 
 const sessionStore = new SequelizeStore({
