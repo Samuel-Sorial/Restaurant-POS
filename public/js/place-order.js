@@ -24,6 +24,7 @@ const onClickProduct = (event) => {
       id: id,
       name: children.item(0).innerText,
       price: children.item(1).innerText.slice(1),
+      ratio: document.getElementById(id).dataset.ratio,
       discount: document.getElementById(id).dataset.discount,
       count: 1,
     };
@@ -68,7 +69,12 @@ const calculateOverAll = () => {
   let overall = 0;
   let totalDiscount = 0;
   for (let product of products) {
-    overall += product.price * product.count;
+    if (product.ratio == 0) {
+      overall += product.price * product.count;
+    } else {
+      overall +=
+        product.price * (((product.count - 1) * product.ratio) / 100 + 1);
+    }
     if (product.discount) {
       totalDiscount += (product.price * product.discount * product.count) / 100;
     }

@@ -16,14 +16,20 @@ module.exports.getPlaceOrder = (req, res, next) => {
 
 module.exports.postPlaceOrder = async (req, res, next) => {
   let client = await Client.findByPk(req.body.client.number);
-  if (!client) {
-    console.log(req.body.client);
+  if (!client && req.body.client.number.length > 0) {
     client = await Client.create({
       phoneNumber: req.body.client.number,
       name: req.body.client.username,
       address: req.body.client.address,
       points: 0,
     }).catch((err) => console.log(err));
+  } else {
+    client.phoneNumber = req.body.client.number;
+    client.name = req.body.client.username;
+    client.address = req.body.client.address;
+    if (req.body.client.usedPoints) {
+      client.points = client.points - parseInt(req.body.client.usedPoints);
+    }
   }
   Invoice.create({
     discount: req.body.prices.totalDiscount,
@@ -35,10 +41,13 @@ module.exports.postPlaceOrder = async (req, res, next) => {
     for (let product of req.body.products) {
       invoice.addProduct(product.id);
     }
-    client.points += invoice.totalPrice;
-    client.name = req.body.client.userUsername;
-    client.address = req.body.client.address;
-    client.save();
+    client.points =
+      parseInt(client.points) +
+      parseInt(invoice.totalPrice) -
+      parseInt(invoice.discount);
+    if (req.body.client.number.length > 0) {
+      client.save();
+    }
     invoice.save();
   });
   res.send();

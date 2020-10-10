@@ -1,0 +1,82 @@
+<link rel="stylesheet" href="/css/cashier.css" />
+<%- include('./includes/navbar.ejs') %>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Client phone</th>
+      <th scope="col">Client name</th>
+      <th scope="col">Total after discount</th>
+      <th scope="col">Date</th>
+      <th scope="col">Manage</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(let invoice of invoices) {%> <% if(!invoice.hidden){ %>
+    <tr>
+      <% if(invoice.client) {%>
+      <th scope="row"><%= invoice.id%></th>
+      <td><%=invoice.client.phoneNumber%></td>
+      <td><%=invoice.client.name%></td>
+      <td><%= invoice.totalPrice - invoice.discount%></td>
+      <td><%= invoice.date%></td>
+      <td>
+        <button
+          onclick="printInvoice(<%=invoice.id%>)"
+          data-id="<%=invoice.id%>"
+          type="button"
+          class="btn btn-success"
+        >
+          Print
+        </button>
+      </td>
+      <td>
+        <button
+          onclick="deleteInvoice(<%=invoice.id%>)"
+          data-id="<%=invoice.id%>"
+          type="button"
+          class="btn btn-danger"
+        >
+          Delete
+        </button>
+      </td>
+      <% } else { %>
+      <th scope="row"><%= invoice.id%></th>
+      <td>no client</td>
+      <td>no client</td>
+      <td><%= invoice.totalPrice - invoice.discount %></td>
+      <td><%= invoice.date%></td>
+      <td>
+        <button
+          onclick="printInvoice(<%=invoice.id%>)"
+          data-id="<%=invoice.id%>"
+          type="button"
+          class="btn btn-success"
+        >
+          Print
+        </button>
+      </td>
+      <td>
+        <button
+          onclick="deleteInvoice(<%=invoice.id%>)"
+          data-id="<%=invoice.id%>"
+          type="button"
+          class="btn btn-danger"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+    <% } } } %>
+  </tbody>
+</table>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+<script src="/js/bs-init.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+<script src="/js/theme.js"></script>
+<script src="/js/invoice.js"></script>
+<%- include('./includes/end.ejs') %>

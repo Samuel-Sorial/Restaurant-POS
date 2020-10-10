@@ -16,6 +16,9 @@ const Invoice = sequelize.define('invoice', {
     type: Sequelize.FLOAT,
     allowNull: false,
   },
+  hidden: {
+    type: Sequelize.BOOLEAN,
+  },
 });
 
 module.exports = Invoice;

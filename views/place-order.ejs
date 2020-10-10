@@ -19,7 +19,7 @@
               <div class="card-body row">
                 <% if (category.products.length > 0) { 
                   for(let product of category.products){ if(product.hidden != 1){ %>
-                    <div  data-id="<%= product.productId%>" data-discount="<% if (product.discount){%> <%=product.discount%> <% }else{ %> <%=category.discount%> <%}%>" id="<%= product.productId%>" class="col-2 product-card">
+                    <div  data-id="<%= product.productId%>" data-ratio="<%= product.ratio %>" data-discount="<% if (product.discount){%> <%=product.discount%> <% }else{ %> <%=category.discount%> <%}%>" id="<%= product.productId%>" class="col-2 product-card">
                     <h4 data-id="<%= product.productId%>" class="product-name"><%= product.name%></h4>
                     <p  data-id="<%= product.productId%>" class="product-price">$<%= product.price%></p>
                   </div>
