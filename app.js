@@ -10,6 +10,8 @@ const session = require('express-session');
 
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
+// $2a$12$NIH/WK/ESjWi5bTw7NkpZu4aHeQcoWbUa2OYqkWzmSTdBiuuAg.xe
+
 const app = express();
 
 const homePage = require('./router/login');

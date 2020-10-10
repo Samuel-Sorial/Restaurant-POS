@@ -8,6 +8,8 @@ const Client = require('../models/client');
 
 const Print = require('../utils/printing/index');
 
+const InvoiceProduct = require('../models/InvoiceProduct');
+
 module.exports.getPlaceOrder = (req, res, next) => {
   Category.findAll({include: Product})
     .then((categories) => {
@@ -41,7 +43,7 @@ module.exports.postPlaceOrder = async (req, res, next) => {
     clientPhoneNumber: client.phoneNumber,
   }).then(async (invoice) => {
     for (let product of req.body.products) {
-      invoice.addProduct(product.id);
+      invoice.addProduct(product.id, {through: {count: product.count}});
     }
     client.points =
       parseInt(client.points) +
@@ -50,16 +52,23 @@ module.exports.postPlaceOrder = async (req, res, next) => {
     if (req.body.client.number.length > 0) {
       client.save();
     }
-    invoice.save();
-    printInvoice(invoice.id);
+    console.log({
+      invoiceId: invoice.id,
+      cashierName: 'samuel',
+      products: req.body.products,
+      date: invoice.createdAt,
+      total: invoice.totalPrice,
+      discount: invoice.discount,
+      afterDiscount: req.body.prices.total,
+      clientPhone: client.phoneNumber,
+      clientName: client.name,
+      clientAddress: client.address,
+      isDelivery: invoice.isDelivery,
+    });
     // Print({
     //   cashierName: 'Samuel',
     //   products:
     // })
   });
   res.send();
-};
-
-const printInvoice = (id) => {
-  Invoice.findByPk(id, {include: Product}).then((res) => console.log(res));
 };
