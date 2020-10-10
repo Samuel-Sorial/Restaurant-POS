@@ -34,8 +34,8 @@ Product.belongsToMany(Invoice, {through: 'InvoiceProduct'});
 
 const sessionStore = new SequelizeStore({
   db: sequelize,
-  expiration: 30 * 60 * 1000, // by milliseconds
-  checkExpirationInterval: 30 * 60 * 1000,
+  expiration: 12 * 60 * 60 * 1000, // by milliseconds
+  checkExpirationInterval: 12 * 60 * 60 * 1000,
 });
 
 app.set('view engine', 'ejs');
@@ -54,7 +54,7 @@ app.use(
     resave: true,
     saveUninitialized: false,
     cookie: {
-      maxAge: 15 * 60 * 1000, // by milliseconds
+      maxAge: 12 * 60 * 60 * 1000, // by milliseconds
       sameSite: true, //prevent sending it to any other domain
     },
   })

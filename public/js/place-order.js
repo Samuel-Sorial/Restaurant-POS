@@ -47,9 +47,8 @@ const addProductToTable = (product) => {
   row.insertCell().innerText = product.name;
   row.insertCell().innerText = '$' + product.price;
   const count = row.insertCell();
-  count.innerHTML =
-    '<input type="number" min="1" value="1" autocomplete="off">';
-  count.onchange = displayOverAllCalculation;
+  count.innerHTML = `<input data-id=${product.id} type="number" min="1" value="1" autocomplete="off">`;
+  count.oninput = updateProducts;
   deleteButton.addEventListener('click', (event) => {
     products.splice(products.indexOf(product), 1);
     removeProductFromTable(product);
@@ -57,6 +56,13 @@ const addProductToTable = (product) => {
   products.push(product);
   calculateOverAll();
 };
+
+const updateProducts = (event) => {
+  products.find((product) => product.id == event.target.dataset.id).count =
+    event.target.value;
+  displayOverAllCalculation();
+};
+
 const calculateOverAll = () => {
   let overall = 0;
   let totalDiscount = 0;
@@ -105,6 +111,7 @@ const incrementCount = (product) => {
   const input = cellOfCount.children.item(0);
   input.value = parseInt(input.value) + 1;
   product.count += 1;
+  console.log('here');
 };
 
 // cell dom object, product => void
@@ -216,10 +223,14 @@ document
   .addEventListener('input', displayOverAllCalculation);
 
 const placeOrder = async () => {
-  const isDelivery = document.querySelector('#exampleCheck1').value;
-  if (isDelivery == 'on') {
+  const isDelivery = document.querySelector('#exampleCheck1').checked;
+  const prices = calculateOverAll();
+  if (products.length == 0) {
+    alert('No products added!');
+    return;
+  }
+  if (isDelivery) {
     if (validateClient()) {
-      const prices = calculateOverAll();
       if (prices.total < 0) {
         alert('Discount cant be more than the total!!!');
         return;
@@ -248,8 +259,12 @@ const placeOrder = async () => {
       );
     }
   } else {
+    if (prices.total < 0) {
+      alert('Discount cant be more than the total!!!');
+      return;
+    }
     sendRequest(
-      'off',
+      isDelivery,
       prices,
       {
         number: phoneNumber.value,
@@ -268,15 +283,16 @@ const validateClient = () => {
   return phoneNumber.value && editUserName.value && editAddress.value;
 };
 
-const sendRequest = (delivery, prices, clientData, products) => {
+const sendRequest = async (delivery, prices, clientData, products) => {
   const reqBody = {
-    delivery: delivery == 'on',
+    delivery: delivery,
     prices: prices,
     client: clientData,
-    products: products
-  }
-  fetch(`http://` + window.location.host + `/place-order`, {
+    products: products,
+  };
+  await fetch(`http://` + window.location.host + `/place-order`, {
     method: 'POST',
-    body: JSON.stringify(reqBody);
-  });
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(reqBody),
+  }).then(location.reload());
 };
