@@ -301,5 +301,7 @@ const sendRequest = async (delivery, prices, clientData, products) => {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(reqBody),
-  }).then(location.reload());
+  })
+    .then((result) => location.reload())
+    .catch((err) => console.log(err));
 };
