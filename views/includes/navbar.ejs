@@ -13,6 +13,7 @@
                 <li class="nav-item">
                 <a class="nav-link" href="/place-order">Place Order</a>
                 </li>
+                <% if(role == 'admin'){ %>
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/manage-product">Manage Product</a>
                 </li>
@@ -29,13 +30,14 @@
                     <a class="nav-link" href="/admin/manage-category">Manage Category</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="/admin/manage-cashier">Manage Cashiers</a>
+                </li>
+                <% }%>
+                 <li class="nav-item">
                     <a class="nav-link" href="/manage-client">Manage Client</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/manage-invoice">Manage Invoice</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin/manage-cashier">Manage Cashiers</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">

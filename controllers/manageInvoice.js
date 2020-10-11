@@ -13,6 +13,7 @@ module.exports.getInvoices = (req, res, next) => {
         invoice.date = created.toString().slice(0, 24);
       });
       res.render('invoice.ejs', {
+        role: req.session.role,
         invoices: invoices,
       });
     }
@@ -26,7 +27,6 @@ module.exports.printInvoice = (req, res, next) => {
     for (let prod of res.products) {
       prod.count = prod.InvoiceProduct.count;
     }
-    console.log('hi');
     Print({
       invoiceId: res.id,
       cashierName: res.user.name,
@@ -36,12 +36,14 @@ module.exports.printInvoice = (req, res, next) => {
       discount: res.discount,
       afterDiscount: res.totalPrice - res.discount,
       clientPhone: res.clientPhoneNumber,
-      clientName: res.client.name,
-      clientAddress: res.client.address,
+      clientName: res.client ? res.client.name : null,
+      clientAddress: res.client ? res.client.address : null,
       isDelivery: res.isDelivery,
     });
   });
   res.send();
 };
 
-module.exports.deleteInvoice = (req, res, next) => {};
+module.exports.deleteInvoice = (req, res, next) => {
+  Invoice.destroy({where: {id: req.params.id}}).then(res.send());
+};

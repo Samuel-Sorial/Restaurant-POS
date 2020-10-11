@@ -101,6 +101,11 @@
       .footer {
         border-top: 1px solid black;
         padding-top: 10px;
+        font-size: 30px;
+      }
+      .numbers {
+        font-size: 25px;
+        border-top: 2px solid black;
       }
     </style>
   </head>
@@ -142,7 +147,20 @@
         <tr>
           <td class="name"><%= products[i].name %></td>
           <td><%= products[i].count %></td>
-          <td><%= products[i].price*products[i].count %></td>
+          <% if(products[i].ratio > 0) { %>
+          <td>
+            <%= products[i].price* ((products[i].count -1) * products[i].ratio
+            /100 +1) %>
+          </td>
+          <% } else {%>
+          <td><%=products[i].price * products[i].count%></td>
+          <% }%>
+        </tr>
+        <% } %> <% if(isDelivery) { %>
+        <tr>
+          <td class="name">ديليفري</td>
+          <td></td>
+          <td>5</td>
         </tr>
         <% } %>
       </tbody>
@@ -182,7 +200,14 @@
       </div>
     </div>
     <% } %>
-
+    <div class="section footer">
+      <div class="data full">
+        <p><span>ارقام ديليفري/</span>01020884320</p>
+      </div>
+      <div class="data full">
+        <p><span>ارقام ديليفري/</span>01227996510</p>
+      </div>
+    </div>
     <div id="feed-span"></div>
   </body>
 </html>

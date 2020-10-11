@@ -11,7 +11,10 @@ const Print = require('../utils/printing/index');
 module.exports.getPlaceOrder = (req, res, next) => {
   Category.findAll({include: Product})
     .then((categories) => {
-      res.render('place-order.ejs', {categories: categories});
+      res.render('place-order.ejs', {
+        role: req.session.role,
+        categories: categories,
+      });
     })
     .catch((err) => console.log(err));
 };
@@ -40,7 +43,7 @@ module.exports.postPlaceOrder = async (req, res, next) => {
     discount: req.body.prices.totalDiscount,
     isDelivery: req.body.delivery,
     totalPrice: req.body.prices.overall,
-    userUsername: req.session.name,
+    userUsername: req.session.username,
     clientPhoneNumber: client ? client.phoneNumber : null,
   }).then(async (invoice) => {
     for (let product of req.body.products) {

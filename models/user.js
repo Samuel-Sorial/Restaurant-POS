@@ -3,6 +3,7 @@ const Sequelize = require('sequelize');
 const sequelize = require('../utils/database');
 
 const bcrypt = require('bcryptjs');
+
 const Invoice = require('./invoice');
 /*
   username: samuel

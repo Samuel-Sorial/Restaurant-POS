@@ -24,10 +24,16 @@ module.exports.postLogin = (req, res, next) => {
         if (rightPassword) {
           req.session.logedIn = true;
           req.session.role = result.role;
+          req.session.username = result.username;
           req.session.name = result.name;
-          return res.render('admin/dashboard.ejs', {
-            currentPage: 'dashboard',
-          });
+          if (req.session.role == 'admin') {
+            return res.render('admin/dashboard.ejs', {
+              currentPage: 'dashboard',
+              role: 'admin',
+            });
+          } else {
+            return res.redirect('place-order');
+          }
         }
       }
       res.redirect('/');
