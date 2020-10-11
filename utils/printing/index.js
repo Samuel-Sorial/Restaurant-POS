@@ -16,7 +16,7 @@ function connectPrinter() {
 
 async function loadLogo() {
   return new Promise((resolve) => {
-    escpos.Image.load('assets/image.png', (result) => {
+    escpos.Image.load('./utils/printing/assets/image.png', (result) => {
       resolve(result);
     });
   });
@@ -28,13 +28,18 @@ const LOGO = loadLogo();
 async function renderInvoice(data) {
   return nodeHtmlToImage({
     // output: 'o.png',
-    html: await ejs.renderFile('assets/invoice.ejs', data, null),
+    html: await ejs.renderFile(
+      './utils/printing/assets/invoice.ejs',
+      data,
+      null
+    ),
     encoding: 'base64',
     transparent: true,
   });
 }
 
 async function main(data) {
+  console.log('Printinnnng');
   try {
     let htm = await renderInvoice(data);
     let invoice = 'data:image/png;base64,' + htm;

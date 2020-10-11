@@ -28,7 +28,8 @@
     "express-session": "^1.17.1",
     "mysql2": "^2.1.0",
     "node-html-to-image": "^3.1.0",
-    "sequelize": "^6.3.5"
+    "sequelize": "^6.3.5",
+    "usb": "^1.6.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"

@@ -2,43 +2,44 @@ const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 const salt = '$2a$12$NIH/WK/ESjWi5bTw7NkpZu';
 
-module.exports.getLogin = (req,res,next) => {
-    if(req.session.logedIn){
-        if(req.session.role == 'admin'){
-            res.redirect('admin');
-        }else{
-            res.redirect('place-order');
-        }
-        return;
+module.exports.getLogin = (req, res, next) => {
+  if (req.session.logedIn) {
+    if (req.session.role == 'admin') {
+      res.redirect('admin');
+    } else {
+      res.redirect('place-order');
     }
-    res.render('home.ejs');
-}
+    return;
+  }
+  res.render('home.ejs');
+};
 
-
-module.exports.postLogin = (req,res,next) => {
-    const username = req.body.username;
-    const password = req.body.password;
-    User.findByPk(username).then( result => {
-        if(result){
-            const rightPassword =  result.validate(password);
-            if(rightPassword){
-                req.session.logedIn = true;
-                req.session.role = result.role;
-                return res.render('admin/dashboard.ejs',{
-                    currentPage:'dashboard'
-                });
-            }
+module.exports.postLogin = (req, res, next) => {
+  const username = req.body.username;
+  const password = req.body.password;
+  User.findByPk(username)
+    .then((result) => {
+      if (result) {
+        const rightPassword = result.validate(password);
+        if (rightPassword) {
+          req.session.logedIn = true;
+          req.session.role = result.role;
+          req.session.name = result.name;
+          return res.render('admin/dashboard.ejs', {
+            currentPage: 'dashboard',
+          });
         }
-        res.redirect('/');
-   }).catch(err => console.log(err))
-}
+      }
+      res.redirect('/');
+    })
+    .catch((err) => console.log(err));
+};
 
-
-module.exports.logOut = (req,res,next) => {
-    if(req.session.logedIn){
-        console.log('destroying');
-        req.session.destroy();
-        req.session = null;
-    }
-    res.redirect('/');
-}
+module.exports.logOut = (req, res, next) => {
+  if (req.session.logedIn) {
+    console.log('destroying');
+    req.session.destroy();
+    req.session = null;
+  }
+  res.redirect('/');
+};
