@@ -18,10 +18,10 @@ module.exports.postLogin = (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
   User.findByPk(username)
-    .then((result) => {
+    .then(async result => {
       if (result) {
-        const rightPassword = result.validate(password);
-        if (rightPassword) {
+        const rightPassword = result.validatePassword(password);
+        if (await rightPassword) {
           req.session.logedIn = true;
           req.session.role = result.role;
           req.session.username = result.username;
@@ -29,7 +29,7 @@ module.exports.postLogin = (req, res, next) => {
           if (req.session.role == 'admin') {
             return res.render('admin/dashboard.ejs', {
               currentPage: 'dashboard',
-              role: 'admin',
+              role: 'admin'
             });
           } else {
             return res.redirect('place-order');
@@ -38,7 +38,7 @@ module.exports.postLogin = (req, res, next) => {
       }
       res.redirect('/');
     })
-    .catch((err) => console.log(err));
+    .catch(err => console.log(err));
 };
 
 module.exports.logOut = (req, res, next) => {
