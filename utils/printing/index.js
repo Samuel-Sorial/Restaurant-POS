@@ -5,10 +5,10 @@ const escpos = require('escpos');
 escpos.USB = require('escpos-usb');
 var device;
 var printer;
-function connectPrinter() {
+async function connectPrinter() {
   try {
-    device = new escpos.USB('0x0483', '0x070B');
-    printer = new escpos.Printer(device);
+    device = await new escpos.USB('0x0483', '0x070B');
+    printer = await new escpos.Printer(device);
   } catch (error) {
     console.log(error);
   }
@@ -38,20 +38,22 @@ async function renderInvoice(data) {
   });
 }
 
-async function main(data) {
+async function main(data,ttl=1) {
   console.log('Printinnnng');
   try {
     let htm = await renderInvoice(data);
     let invoice = 'data:image/png;base64,' + htm;
 
     let logo = await LOGO;
-    escpos.Image.load(invoice, function (inv) {
+    escpos.Image.load(invoice, async function (inv) {
       if (!device) {
-        connectPrinter();
+console.log('device not');
+        await connectPrinter();
+	if(ttl>0) main(data,ttl-1);
         return false;
       }
       try {
-        device.open(function (err) {
+        device.open(async function (err) {
           if (err) {
             throw new Error(err);
           }
@@ -60,14 +62,15 @@ async function main(data) {
           printer.close();
         });
       } catch (error) {
-        connectPrinter();
+console.log(error);
+        await connectPrinter();
+	if(ttl>0) main(data,ttl-1);
       }
     });
   } catch (error) {
     console.log(error);
   } finally {
     if (!device) {
-      connectPrinter();
       return false;
     }
     device.close();
