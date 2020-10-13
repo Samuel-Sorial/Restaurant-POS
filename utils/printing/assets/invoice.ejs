@@ -100,12 +100,16 @@
       }
       .footer {
         border-top: 1px solid black;
-        padding-top: 10px;
-        font-size: 30px;
+        padding-top: 15px;
+        margin-top: 15px;
+        /* font-size: 30px;
       }
       .numbers {
         font-size: 25px;
-        border-top: 2px solid black;
+        border-top: 2px solid black; */
+      }
+      .footer > .data > p {
+        font-size: 28px;
       }
     </style>
   </head>
@@ -147,26 +151,19 @@
         <tr>
           <td class="name"><%= products[i].name %></td>
           <td><%= products[i].count %></td>
-          <% if(products[i].ratio > 0) { %>
-          <td>
-            <%= products[i].price* ((products[i].count -1) * products[i].ratio
-            /100 +1) %>
-          </td>
-          <% } else {%>
-          <td><%=products[i].price * products[i].count%></td>
-          <% }%>
+          <td><%= products[i].total %></td>
         </tr>
         <% } %> <% if(isDelivery) { %>
         <tr>
           <td class="name">ديليفري</td>
-          <td></td>
+          <td>-</td>
           <td>5</td>
         </tr>
         <% } %>
       </tbody>
     </table>
     <div class="section" id="total">
-      <% if(discount) {%>
+      <% if(isDiscount) {%>
       <div class="data s">
         <p>الأجمالى</p>
       </div>
@@ -181,10 +178,10 @@
       </div>
       <% } %>
       <div class="data s total">
-        <p><%= discount?'المدفوع':'الأجمالى'%></p>
+        <p><%= isDiscount?'المدفوع':'الأجمالى'%></p>
       </div>
       <div class="data total">
-        <p><%= discount? afterDiscount : total%></p>
+        <p><%= isDiscount? afterDiscount : total%></p>
       </div>
     </div>
     <% if(isDelivery){ %>

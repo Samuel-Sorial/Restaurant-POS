@@ -6,17 +6,17 @@ const Invoice = require('../models/invoice');
 
 const Client = require('../models/client');
 
-const Print = require('../utils/printing/index');
+const Print = require('../utils/printOrder');
 
 module.exports.getPlaceOrder = (req, res, next) => {
-  Category.findAll({include: Product})
-    .then((categories) => {
+  Category.findAll({ include: Product })
+    .then(categories => {
       res.render('place-order.ejs', {
         role: req.session.role,
-        categories: categories,
+        categories: categories
       });
     })
-    .catch((err) => console.log(err));
+    .catch(err => console.log(err));
 };
 
 module.exports.postPlaceOrder = async (req, res, next) => {
@@ -27,8 +27,8 @@ module.exports.postPlaceOrder = async (req, res, next) => {
       phoneNumber: req.body.client.number,
       name: req.body.client.username,
       address: req.body.client.address,
-      points: 0,
-    }).catch((err) => console.log(err));
+      points: 0
+    }).catch(err => console.log(err));
   } else {
     if (req.body.client.number.length > 0) {
       client.phoneNumber = req.body.client.number;
@@ -44,10 +44,10 @@ module.exports.postPlaceOrder = async (req, res, next) => {
     isDelivery: req.body.delivery,
     totalPrice: req.body.prices.overall,
     userUsername: req.session.username,
-    clientPhoneNumber: client ? client.phoneNumber : null,
-  }).then(async (invoice) => {
+    clientPhoneNumber: client ? client.phoneNumber : null
+  }).then(async invoice => {
     for (let product of req.body.products) {
-      invoice.addProduct(product.id, {through: {count: product.count}});
+      invoice.addProduct(product.id, { through: { count: product.count } });
     }
     if (req.body.client.number.length > 0) {
       client.points =
@@ -68,7 +68,7 @@ module.exports.postPlaceOrder = async (req, res, next) => {
       clientPhone: client ? client.phoneNumber : '',
       clientName: client ? client.name : '',
       clientAddress: client ? client.address : '',
-      isDelivery: invoice.isDelivery,
+      isDelivery: invoice.isDelivery
     });
   });
   res.send();
