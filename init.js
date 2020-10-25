@@ -1,11 +1,11 @@
 const mysql = require('mysql2');
-
+const user = require('./config.json');
 const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '1122SAMUEL',
+  host: user.host,
+  user: user.user,
+  password: user.password,
 });
 
-connection.query('CREATE DATABASE restaurant_pos', (err, result, field) => {
+connection.query(`CREATE DATABASE ${user.database}`, (err, result, field) => {
   console.log(err, result, field);
 });
