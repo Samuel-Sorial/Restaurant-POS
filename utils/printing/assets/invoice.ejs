@@ -153,7 +153,7 @@
           <td><%= products[i].count %></td>
           <td><%= products[i].total %></td>
         </tr>
-        <% } %> <% if(isDelivery) { %>
+        <% } %> <% if(isDelivery && !force) { %>
         <tr>
           <td class="name">ديليفري</td>
           <td>-</td>
@@ -184,7 +184,7 @@
         <p><%= isDiscount? afterDiscount : total%></p>
       </div>
     </div>
-    <% if(isDelivery){ %>
+    <% if(isDelivery || force){ %>
     <div class="section footer">
       <div class="data right">
         <p><span>العميل/</span> <%= clientName %></p>

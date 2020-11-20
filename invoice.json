@@ -1,0 +1,16 @@
+{
+  "invoiceId": 10002,
+  "cashierName": "",
+  "products": [
+    { "name": "", "price": 0, "count": 0 },
+    { "name": "", "price": 0, "count": 0 }
+  ],
+  "date": "12/20/2020 15:30:20",
+  "total": 0,
+  "discount": 0,
+  "afterDiscount": 0,
+  "clientPhone": "00000000000",
+  "clientName": "",
+  "clientAddress": "",
+  "isDelivery": true
+}
